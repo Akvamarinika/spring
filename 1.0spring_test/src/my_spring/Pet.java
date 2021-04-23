@@ -6,6 +6,7 @@ public abstract class Pet {
     Pet(String name){
         this.name = name;
     }
+    Pet(){ }
 
     public String getName() {
         return name;

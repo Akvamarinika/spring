@@ -3,7 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="myPet" class="my_spring.Bird">
-
+    <bean id="myBird" class="my_spring.Bird">
     </bean>
+
+    <bean id="abstractPet" abstract="true" class="my_spring.Pet">
+    </bean>
+
+    <bean id="myPet" parent="abstractPet" class="my_spring.Cat">
+        <constructor-arg value="Barsik"/>
+    </bean>
+
+    <bean id="myPerson" class="my_spring.Person">
+        <constructor-arg ref="myPet"/>
+        <property name="pet" ref="myPet2"/>
+    </bean>
+
+    <bean id="myPet2" parent="abstractPet" class="my_spring.Dog">
+        <constructor-arg value="Tyzik" />
+    </bean>
+
+
 </beans>
