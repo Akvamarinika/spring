@@ -15,7 +15,7 @@
         <div th:each="elem : ${posts}" class="alert alert-info mt-2">
             <h3 th:text="${elem.getTitle()}"/>
             <p th:text="${elem.getAnnouncement()}"/>
-            <a th:href=" '/blog/' + ${elem.id}">Подробней</a>
+            <a th:href=" '/blog/' + ${elem.id}" class="btn btn-warning">Подробней</a>
         </div>
     </div>
 

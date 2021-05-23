@@ -1,9 +1,6 @@
 package com.kggg.myblog.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Post {
@@ -11,8 +8,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String announcement, fullText;
     private int views;
+
+    public Post() {
+    }
 
     public Post(String title, String announcement, String fullText) {
         this.title = title;

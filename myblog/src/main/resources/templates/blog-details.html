@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="blog.css" rel="stylesheet">
+</head>
+<body>
+<header class="site-header sticky-top py-1" th:insert="blocks/header :: header" />
+
+
+<div class="container mt-5">
+    <h1>Блог сайта</h1>
+    <div th:each="elem : ${post}" class="alert alert-info mt-2">
+        <h3 th:text="${elem.getTitle()}"/>
+        <p th:text="${elem.getFullText()}"/>
+        <p th:text="${elem.getViews()}"/>
+        <a th:href=" '/blog/' + ${elem.id} + '/edit'" class="btn btn-warning">Редактировать</a>
+        <a th:href=" '/blog/' + ${elem.id} + '/delete'" class="btn btn-warning">Удалить</a>
+    </div>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"/>
+</body>
+</html>
