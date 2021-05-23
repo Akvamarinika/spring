@@ -12,6 +12,11 @@
 
     <div class="container mt-5">
         <h1>Блог сайта</h1>
+        <div th:each="elem : ${posts}" class="alert alert-info mt-2">
+            <h3 th:text="${elem.getTitle()}"/>
+            <p th:text="${elem.getAnnouncement()}"/>
+            <a th:href=" '/blog/' + ${elem.id}">Подробней</a>
+        </div>
     </div>
 
 
