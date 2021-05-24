@@ -13,9 +13,9 @@
 <div class="container mt-5">
     <h1>Блог сайта</h1>
     <div th:each="elem : ${post}" class="alert alert-info mt-2">
-        <h3 th:text="${elem.getTitle()}"/>
-        <p th:text="${elem.getFullText()}"/>
-        <p th:text="${elem.getViews()}"/>
+        <h3 th:value="${elem.getTitle()}"></h3>
+        <p th:text="${elem.getFullText()}"></p>
+        <p><b>Просмотры</b><span th:text="${elem.getViews()}"/></p>
         <a th:href=" '/blog/' + ${elem.id} + '/edit'" class="btn btn-warning">Редактировать</a>
         <a th:href=" '/blog/' + ${elem.id} + '/delete'" class="btn btn-warning">Удалить</a>
     </div>

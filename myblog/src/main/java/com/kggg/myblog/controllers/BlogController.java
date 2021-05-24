@@ -43,12 +43,41 @@ public class BlogController {
 
     @GetMapping("/blog/{post_id}")
     public String blogDetails(@PathVariable(value = "post_id") long postId, Model model){
+        if (!postRepository.existsById(postId)){
+            return "redirect:/blog";
+        }
         Optional<Post> post = postRepository.findById(postId);
         List<Post> posts = new ArrayList<>();
         post.ifPresent(posts::add);
         //post.ifPresent(p -> posts.add(p));
         model.addAttribute("post", posts);
         return "blog-details";
+    }
+
+    @GetMapping("/blog/{post_id}/edit")
+    public String blogEdit(@PathVariable(value = "post_id") long postId, Model model){
+        if (!postRepository.existsById(postId)){
+            return "redirect:/blog";
+        }
+        Optional<Post> post = postRepository.findById(postId);
+        List<Post> posts = new ArrayList<>();
+        post.ifPresent(posts::add);
+        //post.ifPresent(p -> posts.add(p));
+        model.addAttribute("post", posts);
+        return "blog-edit";
+    }
+
+    @PostMapping("/blog/{post_id}/edit")
+    public String blogPostUpdate(@PathVariable(value = "post_id") long postId, @RequestParam String title, @RequestParam String announce, @RequestParam String full_text, Model model){
+        Post post = postRepository.findById(postId).orElseThrow(IllegalStateException::new);
+       /* Post post = postRepository.findById(postId).<RuntimeException>orElseThrow(() -> {
+            throw new AssertionError();
+        });*/
+        post.setTitle(title);
+        post.setAnnouncement(announce);
+        post.setFullText(full_text);
+        postRepository.save(post);
+        return "redirect:/blog";
     }
 
 }
