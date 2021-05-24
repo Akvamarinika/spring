@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,7 +7,7 @@
     <link href="blog.css" rel="stylesheet">
 </head>
 <body>
-<header class="site-header sticky-top py-1" th:insert="blocks/header :: header" />
+<header class="site-header sticky-top py-1" th:insert="blocks/header :: header" ></header>
 
 
 <div class="container mt-5">
@@ -15,13 +15,15 @@
     <div th:each="elem : ${post}" class="alert alert-info mt-2">
         <h3 th:value="${elem.getTitle()}"></h3>
         <p th:text="${elem.getFullText()}"></p>
-        <p><b>Просмотры</b><span th:text="${elem.getViews()}"/></p>
-        <a th:href=" '/blog/' + ${elem.id} + '/edit'" class="btn btn-warning">Редактировать</a>
-        <a th:href=" '/blog/' + ${elem.id} + '/delete'" class="btn btn-warning">Удалить</a>
+        <p><b>Просмотры</b><span th:text="${elem.getViews()}"></span></p>
+        <a th:href=" '/blog/' + ${elem.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <form th:action=" '/blog/' + ${elem.id} + '/delete'" method="post">
+            <button class="btn btn-warning" type="submit">Удалить</button>
+        </form>
     </div>
 </div>
 
 
-<div th:insert="blocks/footer :: footer"/>
+<div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>

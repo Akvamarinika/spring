@@ -80,4 +80,11 @@ public class BlogController {
         return "redirect:/blog";
     }
 
+    @PostMapping("/blog/{post_id}/delete")
+    public String blogPostDelete(@PathVariable(value = "post_id") long postId, Model model){
+        Post post = postRepository.findById(postId).orElseThrow(IllegalStateException::new);
+        postRepository.delete(post);
+        return "redirect:/blog";
+    }
+
 }
