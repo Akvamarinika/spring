@@ -2,8 +2,8 @@
 public class Sentences implements Comparable<Sentences> {
     private String sentiment;
     private ConfidenceScores confidenceScores;
-    private String offset;
-    private String length;
+    private int offset;
+    private int length;
     private String text;
 
     public String getSentiment() {
@@ -22,19 +22,19 @@ public class Sentences implements Comparable<Sentences> {
         this.confidenceScores = confidenceScores;
     }
 
-    public String getOffset() {
+    public int getOffset() {
         return offset;
     }
 
-    public void setOffset(String offset) {
+    public void setOffset(int offset) {
         this.offset = offset;
     }
 
-    public String getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(String length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
@@ -57,4 +57,12 @@ public class Sentences implements Comparable<Sentences> {
         if (sentiment.equals("positive") && o2.sentiment.equals("neutral")) return 1;
         return 0;
     }
+
+    public String addTagSentence(){
+        return "<span class='" + sentiment +"'>" + text + "</span>";
+
+    }
+
+
+
 }
