@@ -1,4 +1,5 @@
-public class Sentences {
+
+public class Sentences implements Comparable<Sentences> {
     private String sentiment;
     private ConfidenceScores confidenceScores;
     private String offset;
@@ -43,5 +44,17 @@ public class Sentences {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public int compareTo(Sentences o2) {
+        if (sentiment.equals(o2.sentiment)) return confidenceScores.myCompareTo(o2.confidenceScores, sentiment);
+        if (sentiment.equals("negative") && o2.sentiment.equals("neutral")) return -1;
+        if (sentiment.equals("negative") && o2.sentiment.equals("positive")) return -1;
+        if (sentiment.equals("neutral") && o2.sentiment.equals("negative")) return 1;
+        if (sentiment.equals("neutral") && o2.sentiment.equals("positive")) return -1;
+        if (sentiment.equals("positive") && o2.sentiment.equals("negative")) return 1;
+        if (sentiment.equals("positive") && o2.sentiment.equals("neutral")) return 1;
+        return 0;
     }
 }
