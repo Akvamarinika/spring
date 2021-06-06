@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5" th:utext="${text_with_tag}"></div>
+    <div class="container mt-5 mb-5" th:each="doc : ${docs_sort}">
+        <h2>Analysis of entered text:</h2>
+        <p>Your all text: <b><span th:text="${doc.getSentiment()}"></span></b></p>
+        <div th:each="sentences : ${doc.getSentences()}">
+            <p><b><span th:text="${sentences.getSentiment()} + ':  '"></span></b><span th:text="${sentences.getText()}"></span></p>
+        </div>
+    </div>
+    <a th:href="'/'" class="btn btn-warning btn-block">Back to form</a>
+</div>
+</body>
+</html>
