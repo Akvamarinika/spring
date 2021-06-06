@@ -19,9 +19,8 @@ public class AzureAPI {
     private static final String URL_FOR_APIRequest = "https://westeurope.api.cognitive.microsoft.com/text/analytics/v3.0/sentiment";
     private static HttpClient httpclient = null;
     private static HttpPost request = new HttpPost(URL_FOR_APIRequest);
-    private static String textUser = "Hello world. This is some input text that I love. It's incredibly sunny outside! I'm so happy. Pike place market is my favorite Seattle attraction.She had not been working all day so she was energetic. He had not been reading a book. I had not been cooking any meal when she came to my home. You have not been smoking.";
+    private static String textUser;
     private static final String KEY = "e48c3577fb7e4dd8bf0b39035c345244";
-    private static String JSON_CONTENT = "{\"documents\":[{\"language\": \"en\", \"id\": \"1\", \"text\": \"" + textUser + "\"}]}";
     private static String textWithTag;
 
     public static String getTextWithTag() {
@@ -39,6 +38,7 @@ public class AzureAPI {
     }
 
     public static void APIRequest() throws URISyntaxException, IOException {
+        String JSON_CONTENT = "{\"documents\":[{\"language\": \"en\", \"id\": \"1\", \"text\": \"" + textUser + "\"}]}";
         httpclient = HttpClients.createDefault();
         URIBuilder builder = new URIBuilder(URL_FOR_APIRequest);
         //  builder.setParameter("model-version", "{string}");

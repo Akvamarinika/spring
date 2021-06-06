@@ -1,0 +1,9 @@
+.positive {
+  background-color: #1abc9c;
+}
+.neutral {
+  background-color: #6c757d;
+}
+.negative {
+  background-color: #dc3545;
+}
