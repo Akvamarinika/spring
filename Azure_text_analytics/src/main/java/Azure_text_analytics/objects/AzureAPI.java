@@ -1,3 +1,5 @@
+package Azure_text_analytics.objects;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
@@ -13,28 +15,27 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class AzureAPI {
     private static final String URL_FOR_APIRequest = "https://westeurope.api.cognitive.microsoft.com/text/analytics/v3.0/sentiment";
     private static HttpClient httpclient = null;
     private static HttpPost request = new HttpPost(URL_FOR_APIRequest);
     private static String textUser = "Hello world. This is some input text that I love. It's incredibly sunny outside! I'm so happy. Pike place market is my favorite Seattle attraction.She had not been working all day so she was energetic. He had not been reading a book. I had not been cooking any meal when she came to my home. You have not been smoking.";
     private static final String KEY = "e48c3577fb7e4dd8bf0b39035c345244";
     private static String JSON_CONTENT = "{\"documents\":[{\"language\": \"en\", \"id\": \"1\", \"text\": \"" + textUser + "\"}]}";
-    private static List<Sentences> sentences = new ArrayList<>();
+    private static String textWithTag;
 
-    public static void main(String[] args) {
-        try {
-            APIRequest();
-            String json = getResponse();
-            System.out.println(json);
-            DocumentsWrapper documentsWrapper = parseJSON(json);
-            sortSentences(documentsWrapper);
-            printInfo(documentsWrapper);
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
+    public static String getTextWithTag() {
+        return textWithTag;
+    }
 
+    public static void setTextWithTag(DocumentsWrapper documentsWrapper) {
+        StringBuilder builder = new StringBuilder();
+        documentsWrapper.getDocuments().forEach(documents -> documents.getSentences().forEach(sentences1 -> builder.append(sentences1.addTagSentence())));
+        AzureAPI.textWithTag = builder.toString();
+    }
 
+    public static void setTextUser(String textUser) {
+        AzureAPI.textUser = textUser;
     }
 
     public static void APIRequest() throws URISyntaxException, IOException {

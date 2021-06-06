@@ -1,3 +1,4 @@
+package Azure_text_analytics.objects;
 
 public class ConfidenceScores implements Comparable<ConfidenceScores> {
     private  Double positive;

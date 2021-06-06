@@ -1,3 +1,4 @@
+package Azure_text_analytics.objects;
 
 public class Sentences implements Comparable<Sentences> {
     private String sentiment;

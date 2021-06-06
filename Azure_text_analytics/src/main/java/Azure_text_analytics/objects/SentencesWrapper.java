@@ -1,3 +1,5 @@
+package Azure_text_analytics.objects;
+
 import java.util.ArrayList;
 import java.util.List;
 
