@@ -18,6 +18,11 @@ function openForm() {
     btnSave.onclick = () => {
         container.style.display = 'none';
     }
+
+    darkBG.onclick = () => {
+        container.style.display = 'none';
+        document.body.removeChild(darkBG);
+    }
 }
 
 openForm();
