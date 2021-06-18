@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ToDoList</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
 </head>
 <body>
-    <div>
-
+    <div id="to-do-list-form">
+        <form>
+            <h2>Add new event: </h2>
+            <label>Theme: <input type="text"></label><br>
+            <b>Type: </b>
+            <label><input type="radio" name="type">meeting</label>
+            <label><input type="radio" name="type">call</label>
+            <label><input type="radio" name="type">case</label>
+            <label><input type="radio" name="type">conference</label><br>
+            <label>Place: <input type="text"></label><br>
+            <label>Date: <input type="date"></label><br>
+            <label>Time Start: <input type="time"></label><br>
+            <label>Time End: <input type="time"></label><br>
+            <label>Comment: <textarea></textarea></label><br>
+            <hr>
+            <button id="save-event">Save</button>
+        </form>
     </div>
+<div id="list">
+    <h1>MyToDoList: </h1>
+    <button id="show-add-event-form">Add new event</button>
+</div>
+    <script type="text/javascript" src="js/myscript.js"></script>
 </body>
 </html>
