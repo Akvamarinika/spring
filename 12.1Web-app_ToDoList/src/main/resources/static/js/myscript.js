@@ -10,8 +10,8 @@ function openForm() {
         darkBG.id = 'dark-bg';
         document.body.prepend(darkBG);
 
-        container.style.top = window.innerHeight / 2 - 50 + 'px';
-        container.style.left = window.innerWidth / 2 - 100 + 'px';
+        container.style.top = window.innerHeight / 2 - 250 + 'px';
+        container.style.left = window.innerWidth / 2 - 200 + 'px';
         container.style.display = 'block';
     }
 
