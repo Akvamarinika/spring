@@ -49,62 +49,55 @@ function GETListEvent() {
 function checkAndCreateObjectForm() {
     let formObj = new Object();
     let myFormObj = document.querySelector('form').elements;
-
-
-    /* myFormItems.forEach((item) => {
-         console.log(item);
-         if (item && typeof item == typeof 'string'){
-             formObj[item.name] = item.value;
-         }
-     });*/
-
-    /* for (let property in myFormObj){
-     if (parseInt(property) != NaN){console.log(parseInt(property));}
-
-     }*/
-    console.log(myFormObj[1].name);
-    console.log(Object.keys(myFormObj));
-
     let isFilled = true;
+
     for (let i = 0, element; element = myFormObj[i++];) {
+        let elemOnRight = element.parentElement.nextElementSibling;
         let span = document.createElement("span");
         let elemInDOM = document.getElementById(String(i));
         span.id = String(i);
         span.className = 'error';
-        console.log(element.value);
 
-        if (element.type === "text" && element.value === "" ){
+        if (elemOnRight != null && element.value !== '' && elemOnRight.className === 'error'){elemOnRight.remove();}
+
+        if (element.name !== 'comment' && element.value === ""){
+            isFilled = false;
+
             if (elemInDOM == null){
-                span.innerText = "It an empty textfield!";
-                element.after(span);
-                console.log("it an empty textfield");
+                span.innerText = "It an empty field!";
+                element.parentElement.after(span);
             }
-
-            isFilled = false;
         }
 
-        if(element.type === 'date' && element.value === ""){
-            if (elemInDOM == null) {
-                span.innerText = "It an empty date!";
-                element.after(span);
+        if(element.type === 'date' && element.value !== ""){
+            let arrNums = element.value.split('-');
+            let dateNow = new Date().setHours(0,0,0,0);
+            let dateForm = new Date(arrNums[0], arrNums[1]-1, arrNums[2]).setHours(0,0,0,0);
+
+            if (dateForm < dateNow) {
+                span.innerText = "Date entered must be greater than or equal to today's date!";
+                element.parentElement.after(span);
+                isFilled = false;
             }
-
-            isFilled = false;
         }
-
-        if(element.type === 'time' && element.value === ""){
-            if (elemInDOM == null) {
-                span.innerText = "It an empty time!";
-                element.after(span);
-            }
-
-            isFilled = false;
-        }
-
         formObj[element.name] = element.value;
-
     }
-    return isFilled;
+
+    if(myFormObj['time_start'].value !== "" && myFormObj['time_end'].value !== "" && (myFormObj['time_start'].value >= myFormObj['time_end'].value)){
+        isFilled = false;
+
+        if (document.getElementById('8') == null){
+            let span = document.createElement("span");
+            span.id = '8';
+            span.className = 'error';
+            span.innerText = "Start time is greater than or equal to end time!";
+            myFormObj['time_start'].parentElement.after(span);
+        }
+    }
+
+    if (isFilled){
+        return formObj;
+    }
 
 
 
@@ -130,7 +123,7 @@ async function POSTFormEvent() {
     })
         .then((response) => {
             try {
-                if (response.status == 200){
+                if (response.status === 200){
                     return response.text();
                 }
                 return Promise.reject();
