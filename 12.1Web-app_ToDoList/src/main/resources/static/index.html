@@ -8,27 +8,30 @@
 </head>
 <body>
     <div id="to-do-list-form">
-        <form>
+        <form action="" method="post">
             <h2>Add new event: </h2>
-            <label>Theme: <input type="text"></label><br>
+            <label class="required">Theme: <input type="text" name="theme"></label><br>
             <b>Type: </b>
-            <label><input type="radio" name="type">meeting</label>
+            <label><input type="radio" name="type" checked>meeting</label>
             <label><input type="radio" name="type">call</label>
             <label><input type="radio" name="type">case</label>
             <label><input type="radio" name="type">conference</label><br>
-            <label>Place: <input type="text"></label><br>
-            <label>Date: <input type="date"></label><br>
-            <label>Time Start: <input type="time"></label><br>
-            <label>Time End: <input type="time"></label><br>
-            <label>Comment: <textarea></textarea></label><br>
-            <hr>
-            <button id="save-event">Save</button>
+            <label class="required">Place: <input type="text" name="place"></label><br>
+            <label class="required">Date: <input type="date" name="date"></label><br>
+            <label class="required">Time Start: <input type="time" name="time_start"></label><br>
+            <label class="required">Time End: <input type="time" name="time_end"></label><br>
+            <span>Comment: </span><br>
+            <textarea rows="5" cols="45" name="comment"></textarea><br>
         </form>
+        <hr>
+        <button id="save-event">Save</button>
     </div>
-<div id="list">
+    <br><br>
     <h1>MyToDoList: </h1>
     <button id="show-add-event-form">Add new event</button>
-</div>
+    <div id="list">
+
+    </div>
     <script type="text/javascript" src="js/myscript.js"></script>
 </body>
 </html>

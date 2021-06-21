@@ -1,10 +1,12 @@
 #to-do-list-form{
     display: none;
-    width: 400px;
-    height: 500px;
+    width: 500px;
+    height: 600px;
     padding: 20px;
     position: absolute;
-    background-color: aquamarine;
+    background-color: #7fffc8;
+    border-style: outset;
+    border-width: 3px;
 }
 
 #dark-bg{
@@ -14,4 +16,14 @@
     top: 0;
     left: 0;
 }
+
+.error{
+    color: #bf0606;
+}
+
+.required:after{
+    color: #bf0606;
+    content: " *";
+}
+
 
