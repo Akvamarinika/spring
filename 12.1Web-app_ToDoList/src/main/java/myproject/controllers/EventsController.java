@@ -12,11 +12,11 @@ public class EventsController {
 
     @GetMapping("/events/")
     public List<Event> eventList(){
-        return null;
+        return Storage.getEventsList();
     }
 
-    @PostMapping("/events/add")
-    public void addNewEvent(){
-
+    @PostMapping("/events/")
+    public int addNewEvent(Event event){
+        return Storage.addEvent(event);
     }
 }
