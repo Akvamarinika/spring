@@ -16,9 +16,10 @@ function openForm() {
     }
 
    btnSave.onclick = (event) => {
-        let isFilled = checkAndCreateObjectForm();
-        if (isFilled){
-            POSTFormEvent();
+        let formObj = checkAndCreateObjectForm();
+        if (formObj){
+            let id = POSTFormEvent(formObj);
+            GETListEvent(id);
             container.style.display = 'none';
             document.body.removeChild(darkBG);
         }
@@ -32,7 +33,7 @@ function openForm() {
 }
 
 
-function GETListEvent() {
+function GETListEvent(id) {
     let  url = '/events/';
     fetch(url)
         .then((response) => {
@@ -83,7 +84,7 @@ function checkAndCreateObjectForm() {
         formObj[element.name] = element.value;
     }
 
-    if(myFormObj['time_start'].value !== "" && myFormObj['time_end'].value !== "" && (myFormObj['time_start'].value >= myFormObj['time_end'].value)){
+    if(myFormObj['timeStart'].value !== "" && myFormObj['timeEnd'].value !== "" && (myFormObj['timeStart'].value >= myFormObj['timeEnd'].value)){
         isFilled = false;
 
         if (document.getElementById('8') == null){
@@ -91,7 +92,7 @@ function checkAndCreateObjectForm() {
             span.id = '8';
             span.className = 'error';
             span.innerText = "Start time is greater than or equal to end time!";
-            myFormObj['time_start'].parentElement.after(span);
+            myFormObj['timeStart'].parentElement.after(span);
         }
     }
 
@@ -112,33 +113,50 @@ function checkAndCreateObjectForm() {
 
 }
 
-async function POSTFormEvent() {
-    let url = '/events/add';
-    await fetch(url, {
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify('test:string')
-    })
-        .then((response) => {
-            try {
-                if (response.status === 200){
-                    return response.text();
-                }
-                return Promise.reject();
-            } catch (error) {
-                console.log(Error(error));
-            }
-        });
+function POSTFormEvent(jsonObj) {
+    console.log(jsonObj);
+    let url = '/events/';
+    /*
+// request options
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(jsonObj),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+// send POST request
+    fetch(url, options)
+        .then(res => res.json())
+        .then(res => console.log(res));
+*/
+    fetch(url, {
+          method: 'POST',
+          headers:{
+              //'Accept':'application/json',
+              'Content-Type':'application/json'
+          },
+          body: JSON.stringify(jsonObj)
+      })
+          .then((response) => {
+              try {
+                  if (response.status === 200){
+                      return response.json();
+                  }
+                  return Promise.reject();
+              } catch (error) {
+                  console.log(Error(error));
+              }
+          });
 
 }
-/*
+
 const appendEvent = (data) => {
     let container = document.querySelector('#list');
-    let eventHtml = '<h3>' + data + '</h3>';
+    let eventHtml = '<h3>' + data.theme + '</h3>';
     container.innerHTML = eventHtml;
 }
-*/
-openForm();
 
+openForm();
+//GETListEvent();

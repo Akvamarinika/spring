@@ -8,7 +8,7 @@ import java.util.List;
 public class Storage {
     private static List<Event> eventsList;
 
-    Storage(){
+    static {
         eventsList = new ArrayList<>();
     }
 

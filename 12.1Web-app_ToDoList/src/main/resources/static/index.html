@@ -8,18 +8,18 @@
 </head>
 <body>
     <div id="to-do-list-form">
-        <form action="" method="post">
+        <form >
             <h2>Add new event: </h2>
             <label class="required">Theme: <input type="text" name="theme"></label><br>
             <b>Type: </b>
-            <label><input type="radio" name="type" checked>meeting</label>
-            <label><input type="radio" name="type">call</label>
-            <label><input type="radio" name="type">case</label>
-            <label><input type="radio" name="type">conference</label><br>
+            <label><input type="radio" name="type" checked value="meeting">meeting</label>
+            <label><input type="radio" name="type" value="call">call</label>
+            <label><input type="radio" name="type" value="case">case</label>
+            <label><input type="radio" name="type" value="conference">conference</label><br>
             <label class="required">Place: <input type="text" name="place"></label><br>
             <label class="required">Date: <input type="date" name="date"></label><br>
-            <label class="required">Time Start: <input type="time" name="time_start"></label><br>
-            <label class="required">Time End: <input type="time" name="time_end"></label><br>
+            <label class="required">Time Start: <input type="time" name="timeStart"></label><br>
+            <label class="required">Time End: <input type="time" name="timeEnd"></label><br>
             <span>Comment: </span><br>
             <textarea rows="5" cols="45" name="comment"></textarea><br>
         </form>
