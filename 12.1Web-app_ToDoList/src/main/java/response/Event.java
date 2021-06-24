@@ -1,5 +1,7 @@
 package response;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown   =   true )
 public class Event {
     int id;
     String theme;
