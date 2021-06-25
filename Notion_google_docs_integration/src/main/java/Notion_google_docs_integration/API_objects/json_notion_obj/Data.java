@@ -6,16 +6,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
-    String object;
     List<Result> results = new ArrayList<>();
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
 
     public List<Result> getResults() {
         return results;
