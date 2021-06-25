@@ -1,14 +1,12 @@
 package Notion_google_docs_integration.API_objects;
+import Notion_google_docs_integration.API_objects.json_notion_obj.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 
-
-@Component("notionAPIBean")
 public class NotionAPI {
     @Value("${notionAPI.token}")
     private String token;
@@ -35,8 +33,9 @@ public class NotionAPI {
         headers.add("Notion-Version", "2021-05-13");
         headers.setContentType(MediaType.APPLICATION_JSON);
         entity = new HttpEntity<>(headers);
-        Test test = restTemplate.postForObject("https://api.notion.com/v1/databases/4cfb4c09a07449b39a8edbaa68fa8c59/query", entity, Test.class);
-        System.out.println(test.getObject());
+        Data data = restTemplate.postForObject(urlQueryDB, entity, Data.class);
+        assert data != null;
+        System.out.println(data.getResults().get(0).getProperties().getName().getTitles().get(0).getPlainText());
 
 
     }
