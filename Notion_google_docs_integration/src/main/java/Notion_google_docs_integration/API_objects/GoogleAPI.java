@@ -22,13 +22,17 @@ import java.util.Collections;
 import java.util.List;
 public class GoogleAPI {
     @Value("${google.secret.key}")
-    private String userKey;
-    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private String TOKENS_DIRECTORY_PATH;
 
-    private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
+    @Value("${google.credentials.file.path}")
+    private String CREDENTIALS_FILE_PATH;
+
+    @Value("${google.userID}")
+    private String USER_ID;
+
+    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
+    private static final String APPLICATION_NAME = "my-project-spring-boot777";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH = "${google.secret.key}";
 
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
@@ -44,9 +48,9 @@ public class GoogleAPI {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setHost("127.0.0.1").setPort(8080).build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setHost("127.0.0.1").setPort(8888).build();
 
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+        return new AuthorizationCodeInstalledApp(flow, receiver).authorize(USER_ID);
     }
 
     public Drive getInstance() throws GeneralSecurityException, IOException {
