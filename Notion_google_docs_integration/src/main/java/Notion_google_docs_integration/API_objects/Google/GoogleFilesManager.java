@@ -46,7 +46,8 @@ public class GoogleFilesManager {
         return fileList.getFiles();
     }
 
-    public String searchFolderByName(String folderIdParent, String folderName, Drive service) throws IOException {
+    public String searchFolderByName(String folderIdParent, String folderName) throws IOException, GeneralSecurityException {
+        Drive service = googleAPI.getInstance();
         String folderId = null;
         String pageToken = null;
         FileList fileList = null;
@@ -76,8 +77,9 @@ public class GoogleFilesManager {
         return folderId;
     }
 
-    public String createFolderIfItDoesNotExist(String folderIdParent, String folderName, Drive service) throws IOException {
-        String folderId = searchFolderByName(folderIdParent, folderName, service);
+    public String createFolderIfItDoesNotExist(String folderIdParent, String folderName) throws IOException, GeneralSecurityException {
+        Drive service = googleAPI.getInstance();
+        String folderId = searchFolderByName(folderIdParent, folderName);
         if (folderId != null) return folderId;
 
         File fileGoogle = new File();
@@ -91,5 +93,15 @@ public class GoogleFilesManager {
                 .setFields("id")
                 .execute()
                 .getId();
+    }
+
+    public String createFullPathAndGetIdFolder(String path) throws GeneralSecurityException, IOException {
+        Drive service = googleAPI.getInstance();
+        String[] folderNames = path.split("/");
+        String folderIdParent = null;
+        for (String folderName : folderNames) {
+            folderIdParent = createFolderIfItDoesNotExist(folderIdParent, folderName);
+        }
+        return folderIdParent;
     }
 }
