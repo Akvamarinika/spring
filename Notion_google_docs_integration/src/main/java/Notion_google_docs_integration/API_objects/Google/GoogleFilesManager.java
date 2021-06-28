@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.List;
 
 public class GoogleFilesManager {
@@ -73,5 +74,22 @@ public class GoogleFilesManager {
         } while (pageToken != null && folderId == null);
 
         return folderId;
+    }
+
+    public String createFolderIfItDoesNotExist(String folderIdParent, String folderName, Drive service) throws IOException {
+        String folderId = searchFolderByName(folderIdParent, folderName, service);
+        if (folderId != null) return folderId;
+
+        File fileGoogle = new File();
+        fileGoogle.setMimeType("application/vnd.google-apps.folder");
+        fileGoogle.setName(folderName);
+
+        if (folderIdParent != null) {
+            fileGoogle.setParents(Collections.singletonList(folderIdParent));
+        }
+        return service.files().create(fileGoogle)
+                .setFields("id")
+                .execute()
+                .getId();
     }
 }
