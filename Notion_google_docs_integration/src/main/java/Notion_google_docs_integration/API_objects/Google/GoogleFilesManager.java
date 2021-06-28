@@ -16,12 +16,33 @@ public class GoogleFilesManager {
         this.googleAPI = googleAPI;
     }
 
+    public void printList(List<File> files){
+        if (files == null || files.isEmpty()) {
+            System.out.println("No files found.");
+        } else {
+            System.out.println("Files:");
+            for (File file : files) {
+                System.out.printf("%s (%s)\n", file.getName(), file.getId());
+            }
+        }
+    }
+
     public List<File> listFiles(int quantityFiles) throws IOException, GeneralSecurityException {
-        // Print the names and IDs for up to 10 files.
         FileList result = googleAPI.getInstance().files().list()
                 .setPageSize(quantityFiles)
                 .setFields("nextPageToken, files(id, name)")
                 .execute();
         return result.getFiles();
     }
+
+    public List<File> listFilesInFolder(String folderIdParent) throws GeneralSecurityException, IOException {
+        String query;
+        if (folderIdParent == null) folderIdParent = "root";
+        FileList result = googleAPI.getInstance().files().list()
+                .setQ("'" + folderIdParent + "'" + " in parents")  //"mimeType = 'application/vnd.google-apps.folder'"
+                .execute();
+        return result.getFiles();
+    }
+
+
 }
