@@ -1,10 +1,13 @@
 package Notion_google_docs_integration.API_objects.Google;
 
+import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -50,7 +53,7 @@ public class GoogleFilesManager {
         Drive service = googleAPI.getInstance();
         String folderId = null;
         String pageToken = null;
-        FileList fileList = null;
+        FileList fileList;
         File fileGoogle = new File();
         fileGoogle.setMimeType("application/vnd.google-apps.folder");
         fileGoogle.setName(folderName);
@@ -96,12 +99,29 @@ public class GoogleFilesManager {
     }
 
     public String createFullPathAndGetIdFolder(String path) throws GeneralSecurityException, IOException {
-        Drive service = googleAPI.getInstance();
         String[] folderNames = path.split("/");
         String folderIdParent = null;
         for (String folderName : folderNames) {
             folderIdParent = createFolderIfItDoesNotExist(folderIdParent, folderName);
         }
         return folderIdParent;
+    }
+
+    public String uploadFileInFolderPath(MultipartFile file, String filePath) throws GeneralSecurityException, IOException {
+        String folderId = createFullPathAndGetIdFolder(filePath);
+        if (null != file) {
+            File fileMetadata = new File();
+            fileMetadata.setParents(Collections.singletonList(folderId));
+            fileMetadata.setName(file.getOriginalFilename());
+            File uploadFile = googleAPI.getInstance()
+                    .files()
+                    .create(fileMetadata, new InputStreamContent(
+                            file.getContentType(),
+                            new ByteArrayInputStream(file.getBytes()))
+                    )
+                    .setFields("id").execute();
+            return uploadFile.getId();
+        }
+        return null;
     }
 }
