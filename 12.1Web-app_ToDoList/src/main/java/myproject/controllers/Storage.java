@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private static List<Event> eventsList;
-
-    static {
-        eventsList = new ArrayList<>();
-    }
+    private static List<Event> eventsList = new ArrayList<>();
 
     public static int addEvent(Event event){
+        System.out.println(event.getDate());
         int id = eventsList.size() + 1;
         event.setId(id);
         eventsList.add(event);
