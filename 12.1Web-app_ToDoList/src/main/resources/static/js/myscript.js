@@ -18,8 +18,7 @@ function openForm() {
    btnSave.onclick = (event) => {
         let formObj = checkAndCreateObjectForm();
         if (formObj){
-            let id = POSTFormEvent(formObj);
-            GETListEvent(id);
+            POSTFormEvent(formObj);
             container.style.display = 'none';
             document.body.removeChild(darkBG);
         }
@@ -33,22 +32,30 @@ function openForm() {
 }
 
 
-function GETListEvent(id) {
+function GETListEvent( callbackInsertAll) {
     let  url = '/events/';
     fetch(url)
-        .then((response) => {
-            console.log( response.json());
-        })
+        .then((response) =>
+             response.json()
+        )
         .then((data) => {
-            console.log('data: ', data);
+            console.log( "data----",  data);
+            callbackInsertAll(data);
         })
         .catch((error) => {
             console.log(error);
         });
 }
 
+function insertAllEvents(eventsList) {
+    for (let eventObj of eventsList){
+        appendEvent(eventObj);
+    }
+
+}
+
 function checkAndCreateObjectForm() {
-    let formObj = new Object();
+    let formObj = {};
     let myFormObj = document.querySelector('form').elements;
     let isFilled = true;
 
@@ -99,64 +106,51 @@ function checkAndCreateObjectForm() {
     if (isFilled){
         return formObj;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
-function POSTFormEvent(jsonObj) {
-    console.log(jsonObj);
+function POSTFormEvent(eventObj) {
     let url = '/events/';
-    /*
-// request options
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(jsonObj),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
 
-// send POST request
-    fetch(url, options)
-        .then(res => res.json())
-        .then(res => console.log(res));
-*/
     fetch(url, {
           method: 'POST',
           headers:{
-              //'Accept':'application/json',
+              'Accept':'application/json',
               'Content-Type':'application/json'
           },
-          body: JSON.stringify(jsonObj)
+          body: JSON.stringify(eventObj)
       })
-          .then((response) => {
-              try {
-                  if (response.status === 200){
-                      return response.json();
-                  }
-                  return Promise.reject();
-              } catch (error) {
-                  console.log(Error(error));
-              }
-          });
+        .then((response) => {
+            return response.json();
+          })
+        .then(data => {
+            let event = {};
+            event.id = data;
+            console.log('id---', data);
+            for (let key in eventObj){
+                event[key] = eventObj[key];
+            }
+            appendEvent(event);
+        })
+    .catch((error) => {
+        console.log(error);
+    });
 
 }
 
-const appendEvent = (data) => {
+const appendEvent = (event) => {
     let container = document.querySelector('#list');
-    let eventHtml = '<h3>' + data.theme + '</h3>';
-    container.innerHTML = eventHtml;
+    let div = document.createElement('div');
+    let eventHtml = `<h4>${event.theme}</h4> 
+                type: ${event.type} 
+                place: ${event.place} 
+                date: ${event.date} 
+                timeStart: ${event.timeStart} 
+                timeEnd: ${event.timeEnd} 
+                comment: ${event.comment}`;
+    div.innerHTML = `<div>  ${eventHtml} </div>`;
+    container.appendChild(div);
 }
 
 openForm();
-//GETListEvent();
+let events = GETListEvent(insertAllEvents);
+console.log(events);
