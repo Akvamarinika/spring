@@ -1,29 +1,33 @@
 package myproject.controllers;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import response.Event;
-
-import java.io.IOException;
+import myproject.response.Event;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class EventsController {
-    private static ObjectMapper objectMapper;
-
-    static {
-        objectMapper = new ObjectMapper();
-    }
 
     @GetMapping("/events/")
-    public List<Event> eventList(){
-        return Storage.getEventsList();
+    public List<Event> getAll(){
+        //System.out.println(Storage.getAllEvents());
+        return Storage.getAllEvents();
     }
 
     @PostMapping("/events/")
     public int addNewEvent(@RequestBody Event event) {
-        System.out.println(event.getTheme());
-        return Storage.addEvent(event);
+        return Storage.addEvent(event); //id
+    }
+
+    @GetMapping("/events/{id}")
+    public ResponseEntity<Object> getEvent(@PathVariable("id") int id){
+        System.out.println(Storage.getEvent(id));
+
+        Event event = Storage.getEvent(id);
+        if (event.isNull()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return new ResponseEntity<>(event, HttpStatus.OK);
     }
 }
