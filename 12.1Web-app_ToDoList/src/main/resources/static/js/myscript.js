@@ -21,6 +21,7 @@ function openForm() {
             POSTFormEvent(formObj);
             container.style.display = 'none';
             document.body.removeChild(darkBG);
+            document.getElementById('myForm').reset();
         }
         event.stopPropagation();
     }
@@ -51,7 +52,6 @@ function insertAllEvents(eventsList) {
     for (let eventObj of eventsList){
         appendEvent(eventObj);
     }
-
 }
 
 function checkAndCreateObjectForm() {
@@ -140,17 +140,60 @@ function POSTFormEvent(eventObj) {
 const appendEvent = (event) => {
     let container = document.querySelector('#list');
     let div = document.createElement('div');
-    let eventHtml = `<h4>${event.theme}</h4> 
+    let eventHtml = `<a href="#" class="event-link" data-id="${event.id}">${event.theme}</a> 
                 type: ${event.type} 
-                place: ${event.place} 
                 date: ${event.date} 
                 timeStart: ${event.timeStart} 
-                timeEnd: ${event.timeEnd} 
-                comment: ${event.comment}`;
+                timeEnd: ${event.timeEnd}`;
     div.innerHTML = `<div>  ${eventHtml} </div>`;
     container.appendChild(div);
 }
 
+//get event
+function openLink() {
+    let container = document.querySelector('#list');
+   // let eventLink = document.querySelector('.event-link');
+
+       // console.log('eventLink---', eventLink);
+        container.addEventListener('click', async (ev) => {
+            console.log(ev.target.tagName);
+            if (ev.target.tagName === 'A'){
+                let link = ev.target;
+                console.log(link);
+                let eventId = link.dataset.id;
+                console.log(eventId);
+                let div = document.createElement('div');
+                div.className = 'list--link_block';
+
+                try {
+                    let response = await fetch(`/events/${eventId}`);
+                    let json = await response.json();
+                    console.log(json);
+                    let eventObj = json;
+                    console.log('eventObj---', eventObj);
+                    let html = `<span> place: ${eventObj.place} </span>
+                               <span> comment: ${eventObj.comment} </span>`;
+                    console.log(html);
+                    div.innerHTML = html;
+                    console.log(this);
+                    console.log( this.parentElement);
+                    link.parentElement.appendChild(div); ///
+
+                } catch (error) {
+                    if (error.status === 404) {
+                        alert('Sorry, event not found!');
+                    }
+                }
+                //ev.stopPropagation();
+                //return false;
+            }
+        }, false);
+
+
+}
+
+
+
 openForm();
-let events = GETListEvent(insertAllEvents);
-console.log(events);
+GETListEvent(insertAllEvents);
+openLink();
