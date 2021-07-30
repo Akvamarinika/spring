@@ -1,4 +1,6 @@
+import appendEvent from './appendEvent.js';
 import checkAndCreateObjectForm from './createObjectFromForm.js';
+
 function openForm() {
     let btnAdd = document.getElementById('show-add-event-form');
     let btnSave = document.getElementById('save-event');
@@ -33,28 +35,6 @@ function openForm() {
     }
 }
 
-
-function GETListEvents( callbackInsertAll) {
-    let  url = '/events/';
-    fetch(url)
-        .then((response) =>
-             response.json()
-        )
-        .then((data) => {
-            console.log( "data----",  data);
-            callbackInsertAll(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
-
-function insertAllEvents(eventsList) {
-    for (let eventObj of eventsList){
-        appendEvent(eventObj);
-    }
-}
-
 function POSTFormEvent(eventObj) {
     let url = '/events/';
 
@@ -84,22 +64,7 @@ function POSTFormEvent(eventObj) {
 
 }
 
-const appendEvent = (event) => {
-    let container = document.querySelector('#list');
-    let div = document.createElement('div');
-    let eventHtml = `<a href="#" class="event-link" data-id="${event.id}">${event.theme}</a> 
-                type: ${event.type} 
-                date: ${event.date} 
-                timeStart: ${event.timeStart} 
-                timeEnd: ${event.timeEnd}`;
-    div.innerHTML = `<div>  ${eventHtml} </div>`;
-    container.appendChild(div);
-}
-
-
-
-
 
 openForm();
-GETListEvents(insertAllEvents);
+
 
