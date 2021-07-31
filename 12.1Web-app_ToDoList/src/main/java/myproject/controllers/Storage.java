@@ -1,8 +1,6 @@
 package myproject.controllers;
-import myproject.my_exceptions.NotFoundEvent;
 import myproject.response.Event;
 import myproject.response.NullEvent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,5 +28,28 @@ public class Storage {
 
     public static List<Event> getAllEvents() {
         return new ArrayList<>(events.values());
+    }
+
+    public static boolean editEvent(Event event){
+        if (events.containsKey(event.getId())){
+            Event eventFromDB = events.get(event.getId());
+            eventFromDB.setTheme(event.getTheme());
+            eventFromDB.setType(event.getType());
+            eventFromDB.setPlace(event.getType());
+            eventFromDB.setDate(event.getType());
+            eventFromDB.setTimeStart(event.getType());
+            eventFromDB.setTimeEnd(event.getType());
+            eventFromDB.setComment(event.getComment());
+            return true;
+        }
+        return  false;
+    }
+
+    public static boolean removeEvent(int id){
+        if(events.containsKey(id)){
+            events.remove(id);
+            return true;
+        }
+        return false;
     }
 }
