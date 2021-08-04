@@ -11,7 +11,7 @@ public class Storage {
     private static int currentId = 1;
 
     public static int addEvent(Event event){
-        System.out.println(event.getDate());
+        System.out.println(event.getDateStartPlan());
         int id = currentId++;
         event.setId(id);
         events.put(id, event);
@@ -32,14 +32,7 @@ public class Storage {
 
     public static boolean editEvent(Event event){
         if (events.containsKey(event.getId())){
-            Event eventFromDB = events.get(event.getId());
-            eventFromDB.setTheme(event.getTheme());
-            eventFromDB.setType(event.getType());
-            eventFromDB.setPlace(event.getType());
-            eventFromDB.setDate(event.getType());
-            eventFromDB.setTimeStart(event.getType());
-            eventFromDB.setTimeEnd(event.getType());
-            eventFromDB.setComment(event.getComment());
+            events.put(event.getId(), event);
             return true;
         }
         return  false;
