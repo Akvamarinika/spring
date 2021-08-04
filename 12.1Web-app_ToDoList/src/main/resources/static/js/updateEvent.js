@@ -10,8 +10,11 @@ async function PUTRequest(id, eventObj) {
         });
 
         let data = await response.json();
+        console.log(data);
     } catch (error) {
         alert('error: ' + error);
     }
 }
 
+
+export default PUTRequest;
