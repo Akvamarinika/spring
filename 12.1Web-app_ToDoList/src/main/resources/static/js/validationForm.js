@@ -3,16 +3,12 @@ function checkFieldsValidation() {
     let dateStartPlan = myForm.querySelector('#date_start');
     let dateEndPlan = myForm.querySelector('#date_end');
 
-    myForm.addEventListener('submit',(ev) => {
-        ev.preventDefault();
+    removeValidationErrors(myForm);
+    let isValidFields = checkFieldsOnEmpty(myForm);
+    let isValidDate = checkDate(myForm, dateStartPlan, dateEndPlan);
+    let isValidTime = checkTime(myForm, dateStartPlan, dateEndPlan);
 
-        removeValidationErrors(myForm);
-        checkFieldsOnEmpty(myForm);
-        checkDate(myForm, dateStartPlan, dateEndPlan);
-        checkTime(myForm, dateStartPlan, dateEndPlan);
-
-    });
-
+    return isValidFields && isValidDate && isValidTime;
 }
 
 function removeValidationErrors(parentNode){
@@ -23,16 +19,20 @@ function removeValidationErrors(parentNode){
 }
 
 function checkFieldsOnEmpty(parentNode){
+    let isValidFields = true;
     let fields = parentNode.querySelectorAll('.form-event__field');
     for (let i = 0; i<fields.length; i++){
         if (!fields[i].value){
             let error = generateError("It an empty field!");
             fields[i].parentElement.after(error);
+            isValidFields = false;
         }
     }
+    return isValidFields;
 }
 
 function checkDate(parentNode, dateStart, dateEnd){
+    let isValidDate = true;
     let dateStartInMs = dateConverter(dateStart);
     let dateEndInMs = dateConverter(dateEnd);
     let dateNow = new Date().setHours(0,0,0,0);
@@ -40,15 +40,19 @@ function checkDate(parentNode, dateStart, dateEnd){
     if (dateStartInMs < dateNow) {
         let error = generateError("Date entered must be greater than or equal to today's date!");
         dateStart.parentElement.after(error);
+        isValidDate = false;
     }
 
     if (dateStartInMs > dateEndInMs) {
         let error = generateError("Start date is greater than End date!");
         dateEnd.parentElement.after(error);
+        isValidDate = false;
     }
+    return isValidDate;
 }
 
 function checkTime(parentNode, dateStart, dateEnd){
+    let isValidTime = true;
     let timeStart = parentNode.querySelector('#time_start');
     let timeEnd = parentNode.querySelector('#time_end');
     let timeStartInMs = timeConverter(timeStart);
@@ -57,7 +61,9 @@ function checkTime(parentNode, dateStart, dateEnd){
     if (dateConverter(dateStart) === dateConverter(dateEnd) && timeStartInMs >= timeEndInMs){
         let error = generateError("Time start is greater than or equal Time end!");
         timeStart.parentElement.after(error);
+        isValidTime = false;
     }
+    return isValidTime;
 }
 
 let dateConverter = (date) => {
