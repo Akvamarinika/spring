@@ -7,8 +7,9 @@ function checkFieldsValidation() {
     let isValidFields = checkFieldsOnEmpty(myForm);
     let isValidDate = checkDate(myForm, dateStartPlan, dateEndPlan);
     let isValidTime = checkTime(myForm, dateStartPlan, dateEndPlan);
+    let isValidRadio = checkRadio(myForm);
 
-    return isValidFields && isValidDate && isValidTime;
+    return isValidFields && isValidDate && isValidTime && isValidRadio;
 }
 
 function removeValidationErrors(parentNode){
@@ -21,26 +22,32 @@ function removeValidationErrors(parentNode){
 function checkFieldsOnEmpty(parentNode){
     let isValidFields = true;
     let fields = parentNode.querySelectorAll('.form-event__field');
-    let radioValue;
     for (let i = 0; i<fields.length; i++){
         if (!fields[i].value){
             let error = generateError("It an empty field!");
             fields[i].parentElement.after(error);
             isValidFields = false;
         }
+    }
 
-        if (fields[i].type === 'radio' &&  fields[i].checked){
-            radioValue = fields[i].value;
+    return isValidFields;
+}
+
+function checkRadio(parentNode) {
+    let radios = parentNode.querySelectorAll('.form-event__radio');
+    let radioValue;
+    for (const radio of radios){
+        if (radio.checked){
+            radioValue = radio.value;
         }
     }
 
     if (!radioValue){
         let error = generateError("No event type selected!");
-        parentNode.querySelector('.form-event__required').after(error);
-        isValidFields = false;
+        parentNode.querySelector('.form-event__type').after(error);
     }
 
-    return isValidFields;
+    return radioValue;
 }
 
 function checkDate(parentNode, dateStart, dateEnd){
