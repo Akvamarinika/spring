@@ -21,13 +21,25 @@ function removeValidationErrors(parentNode){
 function checkFieldsOnEmpty(parentNode){
     let isValidFields = true;
     let fields = parentNode.querySelectorAll('.form-event__field');
+    let radioValue;
     for (let i = 0; i<fields.length; i++){
         if (!fields[i].value){
             let error = generateError("It an empty field!");
             fields[i].parentElement.after(error);
             isValidFields = false;
         }
+
+        if (fields[i].type === 'radio' &&  fields[i].checked){
+            radioValue = fields[i].value;
+        }
     }
+
+    if (!radioValue){
+        let error = generateError("No event type selected!");
+        parentNode.querySelector('.form-event__required').after(error);
+        isValidFields = false;
+    }
+
     return isValidFields;
 }
 
