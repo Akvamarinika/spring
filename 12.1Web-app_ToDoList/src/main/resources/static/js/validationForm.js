@@ -34,20 +34,17 @@ function checkFieldsOnEmpty(parentNode){
 }
 
 function checkRadio(parentNode) {
-    let radios = parentNode.querySelectorAll('.form-event__radio');
-    let radioValue;
-    for (const radio of radios){
-        if (radio.checked){
-            radioValue = radio.value;
-        }
-    }
+    let radio = parentNode.querySelector('input[name="type"]:checked');
+    let isValidRadio = true;
 
-    if (!radioValue){
+    console.log(radio);
+    if (radio === null){
         let error = generateError("No event type selected!");
         parentNode.querySelector('.form-event__type').after(error);
+        isValidRadio = false;
     }
 
-    return radioValue;
+    return isValidRadio;
 }
 
 function checkDate(parentNode, dateStart, dateEnd){
