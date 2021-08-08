@@ -30,9 +30,17 @@ public class Storage {
         return new ArrayList<>(events.values());
     }
 
-    public static boolean editEvent(Event event){
-        if (events.containsKey(event.getId())){
-            events.put(event.getId(), event);
+    public static boolean editEvent(Event event, int id){
+        if (events.containsKey(id)){
+            events.replace(id, events.get(id), event);
+            return true;
+        }
+        return  false;
+    }
+
+    public static boolean patchEvent(Event event, int id){
+        if (events.containsKey(id)){
+            events.replace(id, event);
             return true;
         }
         return  false;
