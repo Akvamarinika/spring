@@ -32,8 +32,12 @@ public class EventsController {
 
     @PutMapping("/events/{id}")
     public ResponseEntity<Object> editEvent(@RequestBody Event event, @PathVariable("id") int id){
+        return Storage.editEvent(event, id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
 
-        return Storage.editEvent(event) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    @PatchMapping("/events/{id}")
+    public ResponseEntity<Object> patchEvent(@RequestBody Event event, @PathVariable("id") int id){
+        return Storage.patchEvent(event, id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/events/{id}")
