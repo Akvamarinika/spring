@@ -11,7 +11,6 @@ public class EventsController {
 
     @GetMapping("/events/")
     public List<Event> getAll(){
-        //System.out.println(Storage.getAllEvents());
         return Storage.getAllEvents();
     }
 
@@ -29,5 +28,16 @@ public class EventsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return new ResponseEntity<>(event, HttpStatus.OK);
+    }
+
+    @PutMapping("/events/{id}")
+    public ResponseEntity<Object> editEvent(@RequestBody Event event, @PathVariable("id") int id){
+
+        return Storage.editEvent(event) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/events/{id}")
+    public ResponseEntity<Object> removeEvent (@PathVariable("id") int id){
+        return Storage.removeEvent(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }
