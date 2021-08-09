@@ -9,8 +9,12 @@ async function PUTRequest(id, eventObj) {
             body: JSON.stringify(eventObj)
         });
 
-        let data = await response.json();
-        console.log(data);
+        if (response.status === 404) {
+            alert("Sorry, event not found!");
+        } else {
+            location.reload();
+        }
+
     } catch (error) {
         alert('error: ' + error);
     }
