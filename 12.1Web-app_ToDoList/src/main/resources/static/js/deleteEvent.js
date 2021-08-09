@@ -9,7 +9,17 @@ async function deleteEvent(id) {
             body: JSON.stringify(id)
         });
 
-        let data = await response.json();
+        if (response.status === 404) {
+            alert('Event not found.')
+        } else {
+            let linksEvent = document.querySelectorAll('.event-block');
+            for (const link of linksEvent){
+                if (link.dataset.id === id){
+                    link.remove();
+                }
+            }
+        }
+
     } catch (error) {
         console.log(error);
     }
