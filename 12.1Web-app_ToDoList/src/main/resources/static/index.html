@@ -7,31 +7,39 @@
     <link rel="stylesheet" type="text/css" href="css/mystyle.css">
 </head>
 <body>
-    <div id="to-do-list-form">
-        <form id="myForm">
-            <h2>Add new event: </h2>
-            <label class="required">Theme: <input type="text" name="theme"></label><br>
-            <b>Type: </b>
-            <label><input type="radio" name="type" checked value="meeting">meeting</label>
-            <label><input type="radio" name="type" value="call">call</label>
-            <label><input type="radio" name="type" value="case">case</label>
-            <label><input type="radio" name="type" value="conference">conference</label><br>
-            <label class="required">Place: <input type="text" name="place"></label><br>
-            <label class="required">Date: <input type="date" name="date"></label><br>
-            <label class="required">Time Start: <input type="time" name="timeStart"></label><br>
-            <label class="required">Time End: <input type="time" name="timeEnd"></label><br>
-            <span>Comment: </span><br>
-            <textarea rows="5" cols="45" name="comment"></textarea><br>
+    <div id="to-do-list-form" class="form-container">
+        <form class="form-event" id="myForm">
+            <h2 class="title">Add new event: </h2>
+            <label class="form-event__required">Theme: <input class="form-event__field" type="text" id="theme" name="theme"></label><br>
+            <div><span class="form-event__type" >Type: </span></div>
+            <label><input class="form-event__radio" type="radio" name="type"  value="meeting">meeting</label>
+            <label><input class="form-event__radio" type="radio" name="type" value="call">call</label>
+            <label><input class="form-event__radio" type="radio" name="type" value="case">case</label>
+            <label><input class="form-event__radio" type="radio" name="type" value="conference">conference</label><br>
+            <label class="form-event__required">Place: <input class="form-event__field" type="text" id="place" name="place"></label><br>
+            <label class="form-event__required">Date Planned(Start): <input class="form-event__field" type="date" id="date_start" name="dateStartPlan"></label><br>
+            <label class="form-event__required">Date Planned(End): <input class="form-event__field" type="date" id="date_end" name="dateEndPlan"></label><br>
+            <label class="form-event__required">Time Start: <input class="form-event__field" type="time" id="time_start" name="timeStart"></label><br>
+            <label class="form-event__required">Time End: <input class="form-event__field" type="time" id="time_end" name="timeEnd"></label><br>
+            <span>Description: </span><br>
+            <textarea  rows="5" cols="45" id="description" name="description"></textarea><br>
+            <div class="form-event__footer-add">
+                <button type="reset" class="btn btn-secondary">Close</button>
+                <button type="submit" class="btn btn-primary" id="btn-save" value="save">Save</button>
+            </div>
         </form>
-        <hr>
-        <button id="save-event">Save</button>
     </div>
+
+
+
     <br><br>
     <h1>MyToDoList: </h1>
     <button id="show-add-event-form">Add new event</button>
     <div id="list">
 
     </div>
-    <script type="text/javascript" src="js/myscript.js"></script>
+    <script type="module" src="js/mainScript.js"></script>
+    <script type="module" src="js/getAllEvents.js"></script>
+    <script type="module" src="js/scripts.js"></script>
 </body>
 </html>

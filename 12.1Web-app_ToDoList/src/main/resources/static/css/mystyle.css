@@ -4,7 +4,7 @@
     height: 600px;
     padding: 20px;
     position: absolute;
-    background-color: #7fffc8;
+    background-color: #59c3f5;
     border-style: outset;
     border-width: 3px;
 }
@@ -21,9 +21,9 @@
     color: #bf0606;
 }
 
-.required:after{
+.form-event__required:after{
     color: #bf0606;
-    content: " *";
+    content: " * ";
 }
 
 

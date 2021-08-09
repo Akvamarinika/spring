@@ -7,7 +7,7 @@ function GETListEvents( callbackInsertAll) {
             response.json()
         )
         .then((data) => {
-            console.log( "data----",  data);
+            //console.log( "data----",  data);
             callbackInsertAll(data);
         })
         .catch((error) => {
