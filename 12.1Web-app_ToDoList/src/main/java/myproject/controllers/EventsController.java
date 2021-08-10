@@ -11,8 +11,12 @@ import java.util.Optional;
 
 @RestController
 public class EventsController {
+    private final EventRepository eventRepository;
+
     @Autowired
-    private EventRepository eventRepository;
+    public EventsController(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @GetMapping("/events/")
     public List<Event> getAll(){
@@ -43,14 +47,18 @@ public class EventsController {
     }
 
     @PutMapping("/events/{id}")
-    public ResponseEntity<Object> editEvent(@RequestBody Event event, @PathVariable("id") Long id){
-        return Storage.editEvent(event, id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<Object> updateEvent(@RequestBody Event eventUpdate, @PathVariable("id") Long id){
+        if (eventRepository.existsById(id)){
+            eventUpdate.setId(id);
+            eventRepository.save(eventUpdate);
+            return  ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
+
     }
 
-    @PatchMapping("/events/{id}")
-    public ResponseEntity<Object> patchEvent(@RequestBody Event event, @PathVariable("id") Long id){
-        return Storage.patchEvent(event, id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
-    }
+
 
     @DeleteMapping("/events/{id}")
     public ResponseEntity<Object> removeEvent (@PathVariable("id") Long id){
