@@ -26,7 +26,8 @@ public class EventsController {
 
     @PostMapping("/events/")
     public int addNewEvent(@RequestBody Event event) {
-        return Storage.addEvent(event); //id
+        Event newEvent = eventRepository.save(event);
+        return newEvent.getId(); //id
     }
 
     @GetMapping("/events/{id}")
