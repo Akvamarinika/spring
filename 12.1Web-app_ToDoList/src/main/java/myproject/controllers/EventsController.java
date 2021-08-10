@@ -8,6 +8,7 @@ import myproject.model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EventsController {
@@ -32,13 +33,14 @@ public class EventsController {
 
     @GetMapping("/events/{id}")
     public ResponseEntity<Object> getEvent(@PathVariable("id") int id){
-        System.out.println(Storage.getEvent(id));
+        Optional<Event> event = eventRepository.findById(id);
 
-        Event event = Storage.getEvent(id);
-        if (event.isNull()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        if (event.isPresent()){
+            return new ResponseEntity<>(event, HttpStatus.OK);
         }
-        return new ResponseEntity<>(event, HttpStatus.OK);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+
     }
 
     @PutMapping("/events/{id}")
