@@ -1,17 +1,27 @@
 package myproject.controllers;
+import myproject.model.EventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import myproject.response.Event;
+import myproject.model.Event;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class EventsController {
+    @Autowired
+    private EventRepository eventRepository;
 
     @GetMapping("/events/")
     public List<Event> getAll(){
-        return Storage.getAllEvents();
+        Iterable<Event> eventsIterable = eventRepository.findAll();
+        List<Event> eventsList = new ArrayList<>();
+        for (Event event : eventsIterable){
+            eventsList.add(event);
+        }
+        return eventsList;
     }
 
     @PostMapping("/events/")
