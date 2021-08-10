@@ -1,6 +1,8 @@
 package myproject.response;
 
-public class NullEvent extends Event{
+import myproject.model.Event;
+
+public class NullEvent extends Event {
     @Override
     public boolean isNull() {
         return true;

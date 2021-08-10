@@ -1,5 +1,5 @@
 package myproject.controllers;
-import myproject.response.Event;
+import myproject.model.Event;
 import myproject.response.NullEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,18 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Storage {
-    private static Map<Integer, Event> events = new HashMap<>();
-    private static int currentId = 1;
+    private static Map<Long, Event> events = new HashMap<>();
+    private static long currentId = 1;
 
-    public static int addEvent(Event event){
-        System.out.println(event.getDateStartPlan());
-        int id = currentId++;
+    public static long addEvent(Event event){
+        long id = currentId++;
         event.setId(id);
         events.put(id, event);
         return id;
     }
 
-    public static Event getEvent(int id){
+    public static Event getEvent(long id){
         if (events.containsKey(id)){
             return events.get(id);
         }
@@ -30,7 +29,7 @@ public class Storage {
         return new ArrayList<>(events.values());
     }
 
-    public static boolean editEvent(Event event, int id){
+    public static boolean editEvent(Event event, long id){
         if (events.containsKey(id)){
             events.replace(id, events.get(id), event);
             return true;
@@ -38,7 +37,7 @@ public class Storage {
         return  false;
     }
 
-    public static boolean patchEvent(Event event, int id){
+    public static boolean patchEvent(Event event, long id){
         if (events.containsKey(id)){
             events.replace(id, event);
             return true;
@@ -46,7 +45,7 @@ public class Storage {
         return  false;
     }
 
-    public static boolean removeEvent(int id){
+    public static boolean removeEvent(long id){
         if(events.containsKey(id)){
             events.remove(id);
             return true;
