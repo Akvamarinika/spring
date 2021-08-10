@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import myproject.model.Event;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,13 +25,13 @@ public class EventsController {
     }
 
     @PostMapping("/events/")
-    public int addNewEvent(@RequestBody Event event) {
+    public Long addNewEvent(@RequestBody Event event) {
         Event newEvent = eventRepository.save(event);
         return newEvent.getId(); //id
     }
 
     @GetMapping("/events/{id}")
-    public ResponseEntity<Object> getEvent(@PathVariable("id") int id){
+    public ResponseEntity<Object> getEvent(@PathVariable("id") Long id){
         Optional<Event> event = eventRepository.findById(id);
 
         if (event.isPresent()){
@@ -44,17 +43,17 @@ public class EventsController {
     }
 
     @PutMapping("/events/{id}")
-    public ResponseEntity<Object> editEvent(@RequestBody Event event, @PathVariable("id") int id){
+    public ResponseEntity<Object> editEvent(@RequestBody Event event, @PathVariable("id") Long id){
         return Storage.editEvent(event, id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @PatchMapping("/events/{id}")
-    public ResponseEntity<Object> patchEvent(@RequestBody Event event, @PathVariable("id") int id){
+    public ResponseEntity<Object> patchEvent(@RequestBody Event event, @PathVariable("id") Long id){
         return Storage.patchEvent(event, id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/events/{id}")
-    public ResponseEntity<Object> removeEvent (@PathVariable("id") int id){
-        return Storage.removeEvent(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<Object> removeEvent (@PathVariable("id") Long id){
+        return eventRepository.deleteById(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }

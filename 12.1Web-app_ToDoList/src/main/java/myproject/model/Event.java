@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 public class Event {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   private int id;
+   private Long id;
    private String theme;
    private String type;
    private String place;
@@ -26,11 +26,11 @@ public class Event {
    private String timeEndActual;
    private String priority;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
