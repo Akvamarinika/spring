@@ -1,23 +1,30 @@
-package myproject.response;
+package myproject.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
+@Entity
 @JsonIgnoreProperties(ignoreUnknown   =   true )
 public class Event {
-    int id;
-    String theme;
-    String type;
-    String place;
-    String dateStartPlan;
-    String dateEndPlan;
-    String timeStart;
-    String timeEnd;
-    String description;
-    String status;
-    String dateStartActual;
-    String dateEndActual;
-    String timeStartActual;
-    String timeEndActual;
-    String priority;
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private int id;
+   private String theme;
+   private String type;
+   private String place;
+   private String dateStartPlan;
+   private String dateEndPlan;
+   private String timeStart;
+   private String timeEnd;
+   private String description;
+   private String status;
+   private String dateStartActual;
+   private String dateEndActual;
+   private String timeStartActual;
+   private String timeEndActual;
+   private String priority;
 
     public int getId() {
         return id;
