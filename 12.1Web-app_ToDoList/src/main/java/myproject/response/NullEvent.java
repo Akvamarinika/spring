@@ -1,6 +1,6 @@
 package myproject.response;
 
-import myproject.model.Event;
+import myproject.models.Event;
 
 public class NullEvent extends Event {
     @Override

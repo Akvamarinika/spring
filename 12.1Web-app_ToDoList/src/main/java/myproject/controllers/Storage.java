@@ -1,5 +1,5 @@
 package myproject.controllers;
-import myproject.model.Event;
+import myproject.models.Event;
 import myproject.response.NullEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
