@@ -1,0 +1,1 @@
+UPDATE discount_card_types SET type = 'Серебряная' WHERE id = 2
