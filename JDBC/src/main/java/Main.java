@@ -7,8 +7,13 @@ public class Main {
         String pass = "postgres";
         try (Connection connection = DBConnect.getConnection(url, user, pass);
              Statement statement = connection.createStatement()) {
-            bigSales(statement);
-
+            //bigSales(statement);
+            statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (2, 5, 1, 2, '2021-08-14')");
+            statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (1, 2, 2, 1, '2021-08-14')");
+            statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (3, 4, 3, 4, '2021-08-14')");
+            statement.executeBatch();
+            statement.clearBatch();
+            printSale(statement);
 
         } catch (SQLException ex) {
             ex.printStackTrace();
