@@ -1,13 +1,11 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
     @Column(name = "id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
@@ -20,11 +18,11 @@ public class Employee {
     private String department;
 
     @Column(name = "salary")
-    private String salary;
+    private int salary;
 
     public Employee(){}
 
-    public Employee(String name, String surname, String department, String salary) {
+    public Employee(String name, String surname, String department, int salary) {
         this.name = name;
         this.surname = surname;
         this.department = department;
@@ -63,11 +61,11 @@ public class Employee {
         this.department = department;
     }
 
-    public String getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 
