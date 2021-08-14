@@ -15,10 +15,10 @@ public class Main {
 
             Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
-            List<Employee> employees = session.createQuery("from Employee where department='IT' and salary > 2000").getResultList();
-            for (Employee employee : employees){
-                System.out.println(employee);
-            }
+           Employee employee = session.get(Employee.class, 6L);
+           employee.setSalary(1200);
+
+           session.createQuery("update Employee set salary=1800 where name='Ivan'").executeUpdate();
 
 
             session.getTransaction().commit();
