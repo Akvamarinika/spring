@@ -5,19 +5,44 @@ public class Main {
         String url = "jdbc:postgresql://localhost:5432/comp";
         String user = "postgres";
         String pass = "postgres";
-        try (Connection connection = DBConnect.getConnection(url, user, pass);
-             Statement statement = connection.createStatement()) {
+
+
+        try (Connection connection = DBConnect.getConnection(url, user, pass)) {
+            for (int i=0; i<10; i++){
+                int prodId = (int)(Math.random() * 15 + 1);
+                int quantity = (int)(Math.random() * 20 + 1);
+                int clientId = (int)(Math.random() * 10 + 1);
+                int empId = (int)(Math.random() * 10 + 1);
+                preparedInsertSale(connection, prodId, quantity, clientId, empId, java.sql.Date.valueOf("2021-08-16"));
+            }
+
+
+
+
             //bigSales(statement);
-            statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (2, 5, 1, 2, '2021-08-14')");
+           /* statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (2, 5, 1, 2, '2021-08-14')");
             statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (1, 2, 2, 1, '2021-08-14')");
             statement.addBatch("INSERT INTO sales (product_id, quantity, client_id, employee_id, implementation_date) VALUES (3, 4, 3, 4, '2021-08-14')");
             statement.executeBatch();
-            statement.clearBatch();
+            statement.clearBatch();*/
+            Statement statement = connection.createStatement();
             printSale(statement);
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void preparedInsertSale(Connection connection, int productId, int quantity, int clientId, int employeeId, Date implementation_date) throws SQLException {
+        final String insert = "INSERT INTO sales(product_id, quantity, client_id, employee_id, implementation_date) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(insert);
+        preparedStatement.setInt(1, productId);
+        preparedStatement.setInt(2, quantity);
+        preparedStatement.setInt(3, clientId);
+        preparedStatement.setInt(4, employeeId);
+        preparedStatement.setDate(5, implementation_date);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
     public static void bigSales(Statement statement) throws SQLException{
@@ -50,6 +75,7 @@ public class Main {
             Date date = resultSet.getDate("implementation_date");
             System.out.println(new Sale(id, prodId, quantity, client_id, employee_id, date));
         }
+        statement.close();
 
 
     }
