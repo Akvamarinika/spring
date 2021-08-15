@@ -75,6 +75,14 @@ public class Employee {
         this.salary = salary;
     }
 
+    public Detail getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(Detail detailId) {
+        this.detailId = detailId;
+    }
+
     @Override
     public String toString() {
         return "hql.Employee{" +
