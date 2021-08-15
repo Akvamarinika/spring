@@ -1,4 +1,4 @@
-package relations.entity;
+package one_to_one.entity;
 
 import javax.persistence.*;
 

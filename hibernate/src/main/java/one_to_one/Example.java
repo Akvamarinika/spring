@@ -1,10 +1,10 @@
-package relations;
+package one_to_one;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import relations.entity.Detail;
-import relations.entity.Employee;
+import one_to_one.entity.Detail;
+import one_to_one.entity.Employee;
 
 public class Example {
     public static void main(String[] args) {
