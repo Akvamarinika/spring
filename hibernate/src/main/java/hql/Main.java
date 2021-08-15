@@ -1,8 +1,9 @@
+package hql;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,10 +16,9 @@ public class Main {
 
             Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
-           Employee employee = session.get(Employee.class, 3L);
-           session.delete(employee);
 
-           session.createQuery("delete Employee where name='Ivan'").executeUpdate();
+
+           session.createQuery("update Employee set department = 'IT', salary = 2500 where name='Alex'").executeUpdate();
 
 
             session.getTransaction().commit();

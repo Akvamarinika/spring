@@ -1,3 +1,5 @@
+package hql;
+
 import javax.persistence.*;
 
 @Entity
@@ -71,7 +73,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "hql.Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
