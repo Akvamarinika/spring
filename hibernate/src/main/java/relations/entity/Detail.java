@@ -19,6 +19,9 @@ public class Detail {
     @Column(name = "email")
     private String email;
 
+    @OneToOne(mappedBy = "detail", cascade = CascadeType.ALL)
+    private Employee employee;
+
     public Detail() {}
 
     public Detail(String city, String phoneNumber, String email) {
@@ -57,6 +60,14 @@ public class Detail {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

@@ -18,19 +18,23 @@ public class Example {
 
         try {
             session = sessionFactory.getCurrentSession();
-            //Employee employee = new Employee("Petr", "Kapustin", "IT", 1900);
-            //Detail detail = new Detail("Tomsk", "89251234444", "kapustin@gmail.com");
-           // employee.setDetailId(detail);
+            Employee employee = new Employee("Mike", "Alexandrov", "IT", 2100);
+            Detail detail = new Detail("New-York", "89257774444", "mike@gmail.com");
+            detail.setEmployee(employee);
+            employee.setDetail(detail); // detail_id in table employees
 
             session.beginTransaction();
-            //session.save(employee);
 
-            Employee emp = session.get(Employee.class, 2L);
-            session.delete(emp);
+            session.save(detail);
+
+            Detail detailEmp = session.get(Detail.class, 7L);
+            detailEmp.setPhoneNumber("89101237777");
+            detailEmp.getEmployee().setDepartment("HR");
+
 
             session.getTransaction().commit();
-            System.out.println(emp);
-            System.out.println(emp.getDetailId());
+            System.out.println(detail);
+            System.out.println(detailEmp);
         } catch (Exception e){
             if (session != null) {
                 session.beginTransaction().rollback();
