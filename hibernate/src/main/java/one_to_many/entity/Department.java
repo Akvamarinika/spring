@@ -7,13 +7,14 @@ import java.util.List;
 @Entity
 @Table(name = "departments")
 public class Department {
-    @Column(name = "id")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
-    private String name;
+    private String departmentName;
 
     @Column(name = "max_salary")
     private int maxSalary;
@@ -21,24 +22,24 @@ public class Department {
     @Column(name = "min_salary")
     private int minSalary;
 
-    @OneToMany(mappedBy = "department",
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     private List<Employee> listEmp;
 
     public Department() {
     }
 
-    public Department(String name, int maxSalary, int minSalary) {
-        this.name = name;
+    public Department(String departmentName, int minSalary, int maxSalary) {
+        this.departmentName = departmentName;
         this.maxSalary = maxSalary;
         this.minSalary = minSalary;
     }
 
-    public void addEmloyeeToDepartment(Employee employee){
+    public void addEmployeeToDepartment(Employee employee){
         if (listEmp == null){
             listEmp = new ArrayList<>();
         }
         listEmp.add(employee);
+        employee.setDepartment(this);
     }
 
     public Long getId() {
@@ -49,12 +50,12 @@ public class Department {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public int getMaxSalary() {
@@ -73,11 +74,19 @@ public class Department {
         this.minSalary = minSalary;
     }
 
+    public List<Employee> getListEmp() {
+        return listEmp;
+    }
+
+    public void setListEmp(List<Employee> listEmp) {
+        this.listEmp = listEmp;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + departmentName + '\'' +
                 ", maxSalary=" + maxSalary +
                 ", minSalary=" + minSalary +
                 '}';

@@ -2,7 +2,7 @@ package hql;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "hql.Employee")
 @Table(name = "employees")
 public class Employee {
     @Column(name = "id")

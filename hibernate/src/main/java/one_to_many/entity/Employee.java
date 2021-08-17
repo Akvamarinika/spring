@@ -2,12 +2,13 @@ package one_to_many.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "one_to_many.entity.Employee")
 @Table(name = "employees")
 public class Employee {
-    @Column(name = "id")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
