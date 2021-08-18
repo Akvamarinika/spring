@@ -3,6 +3,7 @@ package one_to_many.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "departments")
@@ -90,5 +91,18 @@ public class Department {
                 ", maxSalary=" + maxSalary +
                 ", minSalary=" + minSalary +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Department)) return false;
+        Department that = (Department) obj;
+        return departmentName.equals(that.departmentName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(departmentName);
     }
 }

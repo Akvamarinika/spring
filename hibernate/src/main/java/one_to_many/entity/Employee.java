@@ -1,6 +1,7 @@
 package one_to_many.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "one_to_many.entity.Employee")
 @Table(name = "employees")
@@ -81,5 +82,21 @@ public class Employee {
                 ", surname='" + surname + '\'' +
                 ", salary=" + salary +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Employee)) return false;
+        Employee employee = (Employee) obj;
+        return salary == employee.salary &&
+                name.equals(employee.name) &&
+                surname.equals(employee.surname) &&
+                Objects.equals(department, employee.department);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, salary, department);
     }
 }
