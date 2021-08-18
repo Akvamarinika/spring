@@ -16,7 +16,7 @@ public class Test2 {
                 .buildSessionFactory();
 
         Session session = sessionFactory.getCurrentSession()){
-            Department department = new Department("IT", 1000, 3000);
+          Department department = new Department("HR", 1000, 2000);
 
             Employee emp1 = new Employee("Mike", "Aleksandrov",2500);
             Employee emp2 = new Employee("Elena", "Sidorova", 2500);
@@ -28,14 +28,21 @@ public class Test2 {
 
             session.beginTransaction();
 
-            session.save(department);
+            session.persist(department);
 
-            Department depart = session.get(Department.class, department.getId());
-            depart.getListEmp().forEach(System.out::println);
+            //Department depart = session.get(Department.class, department.getId());
+            //depart.getListEmp().forEach(System.out::println);
+
+            /*
+            Query<Employee> query = session.createQuery("SELECT emp FROM Department depart JOIN depart.listEmp emp WHERE emp.surname = 'Aleksandrov'");
+            Employee emp =  query.getSingleResult();
+            System.out.println(emp);
+            session.delete(emp);
+*/
 
             session.getTransaction().commit();
 
-            System.out.println(department);
+
         }
 
 
