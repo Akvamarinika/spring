@@ -14,7 +14,7 @@
     <h2>Write details: </h2><br>
     <form action="${pageContext.request.contextPath}/showDetails" method="get">
         <label>
-            Name: <input type="text" placeholder="Please, write your name" name="yourName">
+            Name: <input type="text" placeholder="Please, write your name" name="yourName1">
         </label>
         <input type="submit" value="Submit" id="btn">
     </form>

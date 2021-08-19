@@ -11,6 +11,6 @@
     <title>Show details</title>
 </head>
 <body>
-    <h2>Welcome, ${param.yourName}! </h2>
+    <h2>Welcome, </h2>${nameEmp}
 </body>
 </html>
