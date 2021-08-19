@@ -15,10 +15,10 @@ public class Section {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "child_section",
-    joinColumns = @JoinColumn(name = "child_id"),
-    inverseJoinColumns = @JoinColumn(name = "section_id"))
+    joinColumns = @JoinColumn(name = "section_id"),
+    inverseJoinColumns = @JoinColumn(name = "child_id"))
     private List<Child> children;
 
     public Section() {

@@ -18,10 +18,10 @@ public class Child {
     @Column(name = "age")
     private int age;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "child_section",
-    joinColumns = @JoinColumn(name = "section_id"),
-    inverseJoinColumns = @JoinColumn(name = "child_id"))
+    joinColumns = @JoinColumn(name = "child_id"),
+    inverseJoinColumns = @JoinColumn(name = "section_id"))
     private List<Section> sections;
 
     public Child() {
