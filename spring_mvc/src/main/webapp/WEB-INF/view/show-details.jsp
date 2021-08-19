@@ -11,6 +11,12 @@
     <title>Show details</title>
 </head>
 <body>
-    <h2>Welcome, </h2>${nameEmp}
+    <h2>Show details: </h2><br>
+        <br><br>
+            Name: ${empObj.name}
+        <br><br>
+            Surname:${empObj.surname}
+        <br><br>
+            Salary: ${empObj.salary}
 </body>
 </html>
