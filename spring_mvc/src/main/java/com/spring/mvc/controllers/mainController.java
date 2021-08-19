@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +22,7 @@ public class mainController {
     }
 
     @RequestMapping("/showDetails")
-    public String showDetails(HttpServletRequest request, Model model){
-        String yourName = request.getParameter("yourName1");
+    public String showDetails(@RequestParam("yourName1") String yourName, Model model){
         yourName = "Mr. " + yourName;
         model.addAttribute("nameEmp", yourName);
         return "show-details";
