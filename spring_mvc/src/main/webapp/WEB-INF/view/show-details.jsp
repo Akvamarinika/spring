@@ -30,7 +30,9 @@
                 </c:forEach>
             </ul>
         <br><br>
-        Phone number: ${empObj.phoneNumber}
+            Phone number: ${empObj.phoneNumber}
+        <br><br>
+            Email: ${empObj.email}
 
 </body>
 </html>

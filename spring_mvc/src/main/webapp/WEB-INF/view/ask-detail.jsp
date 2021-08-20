@@ -39,6 +39,10 @@
             Phone number: <form:input path="phoneNumber" /> <form:errors path="phoneNumber" />
         </label>
         <br>
+        <label>
+            Email: <form:input path="email" /> <form:errors path="email" />
+        </label>
+        <br>
         <input type="submit" value="OK" />
     </form:form>
 </body>
