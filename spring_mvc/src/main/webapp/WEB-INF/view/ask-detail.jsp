@@ -16,13 +16,26 @@
     <form:form action="${pageContext.request.contextPath}/showDetails" method="get" modelAttribute="empObj">
         <label>
             Name: <form:input path="name" />
-        </label>
+        </label><br>
         <label>
             Surname: <form:input path="surname" />
-        </label>
+        </label><br>
         <label>
             Salary: <form:input path="salary" />
+        </label><br>
+        <form:select path="department">
+            <form:options items="${empObj.departments}"  />
+        </form:select>
+        <br>
+        <label>
+            Car brand: <form:radiobuttons path="carBrand" items="${empObj.brands}"/>
         </label>
+        <br>
+        <label>
+            Language(s): <form:checkboxes path="languages" items="${empObj.languageList}"/>
+        </label>
+        <br>
+
         <input type="submit" value="OK" />
     </form:form>
 </body>
