@@ -29,6 +29,8 @@
                     <li>${lang}</li>
                 </c:forEach>
             </ul>
+        <br><br>
+        Phone number: ${empObj.phoneNumber}
 
 </body>
 </html>

@@ -15,13 +15,13 @@
     <h2>Write details: </h2><br>
     <form:form action="${pageContext.request.contextPath}/showDetails" method="get" modelAttribute="empObj">
         <label>
-            Name: <form:input path="name" />
+            Name: <form:input path="name" /> <form:errors path="name" />
         </label><br>
         <label>
-            Surname: <form:input path="surname" />
+            Surname: <form:input path="surname" /><form:errors path="surname" />
         </label><br>
         <label>
-            Salary: <form:input path="salary" />
+            Salary: <form:input path="salary" /><form:errors path="salary" />
         </label><br>
         <form:select path="department">
             <form:options items="${empObj.departments}"  />
@@ -35,7 +35,10 @@
             Language(s): <form:checkboxes path="languages" items="${empObj.languageList}"/>
         </label>
         <br>
-
+        <label>
+            Phone number: <form:input path="phoneNumber" /> <form:errors path="phoneNumber" />
+        </label>
+        <br>
         <input type="submit" value="OK" />
     </form:form>
 </body>
