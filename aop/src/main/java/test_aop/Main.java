@@ -14,7 +14,7 @@ public class Main {
 
         SchoolLibrary schoolLibrary = context.getBean(SchoolLibrary.class);
         schoolLibrary.getBook();
-        schoolLibrary.returnBook();
+        schoolLibrary.getMagazine();
     }
 
 }

@@ -2,14 +2,18 @@ package test_aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
 class LoggingAspect {
-    @Before("execution( * *())")
+    @Pointcut("execution( * get*())")
+    private void allGetMethods(){}
+
+    @Before("allGetMethods()")
     public void beforeGetBookAdvice(){
-       System.out.println("beforeGetBookAdvice: use method getBook");
+       System.out.println("beforeGetBookAdvice: use method getBook / getMagazine");
        }
 
    /* @Before("execution(public int returnBook())")
