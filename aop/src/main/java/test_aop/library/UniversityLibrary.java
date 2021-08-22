@@ -4,9 +4,8 @@ import org.springframework.stereotype.Component;
 import test_aop.library.AbstractLibrary;
 
 @Component
-public class UniversityLibrary extends AbstractLibrary {
-    @Override
-    public void getBook(){
+public class UniversityLibrary{
+    public void getBook(String name, Book book){
         System.out.println("getBook from UniversityLibrary");
     }
 
