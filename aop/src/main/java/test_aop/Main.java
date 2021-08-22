@@ -9,12 +9,19 @@ import test_aop.library.UniversityLibrary;
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
-        AbstractLibrary universityLibrary = context.getBean("universityLibrary", UniversityLibrary.class);
+        UniversityLibrary universityLibrary = context.getBean("universityLibrary", UniversityLibrary.class);
         universityLibrary.getBook();
+        universityLibrary.getMagazine();
 
-        SchoolLibrary schoolLibrary = context.getBean(SchoolLibrary.class);
+        universityLibrary.returnBook();
+        universityLibrary.returnMagazine();
+
+        universityLibrary.addBook();
+        universityLibrary.addMagazine();
+
+     /*   SchoolLibrary schoolLibrary = context.getBean(SchoolLibrary.class);
         schoolLibrary.getBook();
-        schoolLibrary.getMagazine();
+        schoolLibrary.getMagazine(); */
     }
 
 }

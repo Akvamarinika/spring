@@ -8,13 +8,32 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 class LoggingAspect {
-    @Pointcut("execution( * get*())")
-    private void allGetMethods(){}
+    @Pointcut("execution( * test_aop.library.UniversityLibrary.*(..))")
+    private void allMethodsInUniversity(){}
 
-    @Before("allGetMethods()")
-    public void beforeGetBookAdvice(){
-       System.out.println("beforeGetBookAdvice: use method getBook / getMagazine");
+    @Pointcut("execution( public void test_aop.library.UniversityLibrary.return*(..))")
+    private void allMethodsReturn(){}
+
+    @Pointcut("allMethodsInUniversity() && !allMethodsReturn()")
+    private void allMethodsUniversityButNotReturn(){
+    }
+
+    @Before("allMethodsInUniversity()")
+    public void beforeAllMethodsAdvice(){
+       System.out.println("beforeAllMethods LOG#1");
        }
+
+    @Before("allMethodsReturn()")
+    public void beforeReturnMethodsAdvice(){
+        System.out.println("beforeReturnBookAdvice LOG#2: use method returnBook / returnMagazine");
+    }
+
+    @Before("allMethodsUniversityButNotReturn()")
+    public void beforeAllMethodsExceptMethodReturnAdvice(){
+        System.out.println("beforeAllMethodsExceptMethodReturnAdvice LOG#3");
+    }
+
+
 
    /* @Before("execution(public int returnBook())")
     public void beforeReturnBookAdvice(){
