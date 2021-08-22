@@ -13,11 +13,11 @@ public class Main {
         universityLibrary.getBook();
         universityLibrary.getMagazine();
 
-        universityLibrary.returnBook();
+      /*  universityLibrary.returnBook();
         universityLibrary.returnMagazine();
 
         universityLibrary.addBook();
-        universityLibrary.addMagazine();
+        universityLibrary.addMagazine();*/
 
      /*   SchoolLibrary schoolLibrary = context.getBean(SchoolLibrary.class);
         schoolLibrary.getBook();

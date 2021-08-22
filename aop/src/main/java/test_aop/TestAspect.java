@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-class LoggingAspect {
-    @Pointcut("execution( * test_aop.library.UniversityLibrary.*(..))")
+class TestAspect {
+ /*   @Pointcut("execution( * test_aop.library.UniversityLibrary.*(..))")
     private void allMethodsInUniversity(){}
 
     @Pointcut("execution( public void test_aop.library.UniversityLibrary.return*(..))")
@@ -33,7 +33,7 @@ class LoggingAspect {
         System.out.println("beforeAllMethodsExceptMethodReturnAdvice LOG#3");
     }
 
-
+*/
 
    /* @Before("execution(public int returnBook())")
     public void beforeReturnBookAdvice(){
