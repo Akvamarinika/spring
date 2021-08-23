@@ -18,6 +18,8 @@ public class Test2 {
             System.out.println("Catch exception: " + ex);
         }
 
+        BookL book = new BookL("Book name", "Author surname", 1999);
+        bookLibrary.returnBook(book);
 
         context.close();
 

@@ -25,4 +25,10 @@ public class BookLibrary {
         System.out.println("\nmethod start getBook in class BookLibrary -->");
         return books.get(id);
     }
+
+    public BookL returnBook(BookL book){
+        System.out.println("method start returnBook in class BookLibrary -->");
+        books.add(book);
+        return book;
+    }
 }
