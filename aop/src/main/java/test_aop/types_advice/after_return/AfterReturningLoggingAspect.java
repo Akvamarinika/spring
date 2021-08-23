@@ -21,7 +21,8 @@ public class AfterReturningLoggingAspect {
      * example advice changes book 0
      * */
     @AfterReturning(pointcut = "execution(* getBooks())", returning = "books")
-    private void selectGetBookLibraryMethodBefore(List<BookL> books){
+    private void selectGetBookLibraryAfterReturningAdvice(List<BookL> books){
+        System.out.println("selectGetBookLibraryAfterReturningAdvice: ");
         BookL book = books.get(0);
         book.setName("Ребекка");
         book.setAuthor("Дафна Дюморье");

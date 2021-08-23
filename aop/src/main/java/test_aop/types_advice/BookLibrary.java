@@ -20,4 +20,9 @@ public class BookLibrary {
     public void setBooks(List<BookL> books) {
         this.books = books;
     }
+
+    public BookL getBook(int id){ // exception-method
+        System.out.println("\nmethod start getBook in class BookLibrary -->");
+        return books.get(id);
+    }
 }

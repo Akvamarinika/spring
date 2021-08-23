@@ -56,18 +56,4 @@ public class BookL {
                 '}';
     }
 
-    @Component
-    public static class BookLibrary {
-        List<BookL> books = new ArrayList<>();
-
-        public void addBook(BookL book){
-            books.add(book);
-        }
-
-        public List<BookL> getBooks() {
-            return books;
-        }
-
-
-    }
 }
