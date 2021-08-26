@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: rozes
@@ -50,44 +51,44 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body mx-4">
-                    <form class="custom-form" role="form">
+                    <form:form action="${pageContext.request.contextPath}/employees" method="post" modelAttribute="empObj">
                         <div class="row inputs">
                             <div class="form-group mb-3">
                                 <label for="name">Name:</label>
-                                <input id="name" class="form-control" />
+                                <form:input path="name" id="name" class="form-control" />
                             </div>
                             <div class="form-group mb-3">
                                 <label for="surname">Surname:</label>
-                                <input id="surname" class="form-control" type="text" />
+                                <form:input path="surname" id="surname" class="form-control" type="text" />
                             </div>
                             <div class="form-group mb-3">
                                 <label for="department">Department:</label>
-                                <select id="department" class="form-control">
-                                    <option></option>
-                                </select>
+                                <form:select path="department.id" id="department" class="form-control">
+                                    <form:options items="${departmentList}" itemValue="id" itemLabel="name"/>
+                                </form:select>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="salary">Salary:</label>
-                                <input id="salary" class="form-control" type="number" />
+                                <form:input path="salary" id="salary" class="form-control" type="number" />
                             </div>
                             <div class="form-group mb-3">
                                 <label for="phone">Phone number: </label>
-                                <input id="phone" class="form-control" type="text" />
+                                <form:input path="detail.phoneNumber" id="phone" class="form-control" type="text" />
                             </div>
                             <div class="form-group mb-3">
                                 <label for="email">E-mail:</label>
-                                <input id="email" class="form-control" type="email" />
+                                <form:input path="detail.email" id="email" class="form-control" type="email" />
                             </div>
                             <div class="form-group mb-3">
                                 <label for="city">City: </label>
-                                <input id="city" class="form-control" type="text" />
+                                <form:input path="detail.city" id="city" class="form-control" type="text" />
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form:form>
                 </div>
             </div>
         </div>
