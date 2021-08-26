@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="department">Department:</label>
-                                <form:select path="department.id" id="department" class="form-control">
+                                <form:select  id="department" class="form-control"  path="department.id">
                                     <form:options items="${departmentList}" itemValue="id" itemLabel="name"/>
                                 </form:select>
                             </div>
