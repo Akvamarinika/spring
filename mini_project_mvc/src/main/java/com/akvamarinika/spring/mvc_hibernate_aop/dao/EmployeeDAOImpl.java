@@ -1,5 +1,6 @@
 package com.akvamarinika.spring.mvc_hibernate_aop.dao;
 
+import com.akvamarinika.spring.mvc_hibernate_aop.dao.repositories.EmployeeDAO;
 import com.akvamarinika.spring.mvc_hibernate_aop.entities.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class EmployeeDAOImpl implements EmployeeDAO{
+public class EmployeeDAOImpl implements EmployeeDAO {
     SessionFactory sessionFactory;
 
     @Autowired
@@ -18,10 +19,16 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
+    public List<Employee> getAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Employee> query = session.createQuery("from Employee",  Employee.class);
         List<Employee> employeeList = query.getResultList();
         return employeeList;
+    }
+
+    @Override
+    public void save(Employee employee) {
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(employee);
     }
 }
