@@ -1,10 +1,13 @@
 package com.akvamarinika.spring.mvc_hibernate_aop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown   =   true )
 @Table(name = "departments")
 public class Department {
     @Id
@@ -60,5 +63,13 @@ public class Department {
 
     public void setMaxSalary(int maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

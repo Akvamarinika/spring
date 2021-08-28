@@ -1,8 +1,12 @@
 package com.akvamarinika.spring.mvc_hibernate_aop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown   =   true )
 @Table(name = "employee")
 public class Employee {
     @Id
@@ -22,11 +26,12 @@ public class Employee {
     @Column(name = "salary")
     private int salary;
 
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "details_id")
     private Detail detail;
 
@@ -80,4 +85,5 @@ public class Employee {
     public void setDetail(Detail detail) {
         this.detail = detail;
     }
+
 }

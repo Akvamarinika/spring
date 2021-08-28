@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -25,5 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public void save(Employee employee) {
         employeeDAO.save(employee);
+    }
+
+    @Override
+    @Transactional
+    public  Optional<Employee> get(Long id) {
+        Optional<Employee> employee = employeeDAO.get(id);
+        return employee;
     }
 }

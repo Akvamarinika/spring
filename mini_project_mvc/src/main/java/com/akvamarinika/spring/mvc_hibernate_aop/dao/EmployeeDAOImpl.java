@@ -3,12 +3,14 @@ package com.akvamarinika.spring.mvc_hibernate_aop.dao;
 import com.akvamarinika.spring.mvc_hibernate_aop.dao.repositories.EmployeeDAO;
 import com.akvamarinika.spring.mvc_hibernate_aop.entities.Department;
 import com.akvamarinika.spring.mvc_hibernate_aop.entities.Employee;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -37,5 +39,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         employee.setDepartment(department);
         session.persist(employee);
 
+    }
+
+    @Override
+    public Optional<Employee> get(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Employee> query = session.createQuery("SELECT emp FROM Employee emp JOIN FETCH emp.department depart WHERE emp.id = :id", Employee.class);
+        query.setParameter("id", id);
+        return Optional.ofNullable(query.getSingleResult());
     }
 }

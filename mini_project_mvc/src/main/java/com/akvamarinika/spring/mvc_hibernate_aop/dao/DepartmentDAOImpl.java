@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class DepartmentDAOImpl implements DepartmentDAO {
@@ -25,5 +26,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     @Override
     public void save(Department item) {
 
+    }
+
+    @Override
+    public Optional<Department> get(Long id) {
+        return null;
     }
 }

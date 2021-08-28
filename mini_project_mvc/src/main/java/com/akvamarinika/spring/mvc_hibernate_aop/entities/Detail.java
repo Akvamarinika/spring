@@ -1,8 +1,11 @@
 package com.akvamarinika.spring.mvc_hibernate_aop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown   =   true )
 @Table(name = "details")
 public class Detail {
     @Id
@@ -52,4 +55,5 @@ public class Detail {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

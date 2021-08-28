@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -26,5 +27,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     public void save(Department item) {
 
+    }
+
+    @Override
+    public Optional<Department> get(Long id) {
+        return null;
     }
 }
