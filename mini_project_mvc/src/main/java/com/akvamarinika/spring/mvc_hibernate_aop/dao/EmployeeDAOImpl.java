@@ -37,7 +37,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         departmentQuery.setParameter("id", id);
         Department department = departmentQuery.getSingleResult();
         employee.setDepartment(department);
-        session.persist(employee);
+        session.saveOrUpdate(employee);
 
     }
 
@@ -46,6 +46,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         Session session = sessionFactory.getCurrentSession();
         Query<Employee> query = session.createQuery("SELECT emp FROM Employee emp JOIN FETCH emp.department depart WHERE emp.id = :id", Employee.class);
         query.setParameter("id", id);
-        return Optional.ofNullable(query.getSingleResult());
+        Employee employee = query.getSingleResult();
+        Hibernate.initialize(employee.getDepartment());
+
+
+        return Optional.ofNullable(employee);
     }
 }

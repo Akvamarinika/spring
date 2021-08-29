@@ -43,11 +43,11 @@ public class EmployeeController {
     }
 //, produces = MediaType.APPLICATION_JSON_VALUE
     @RequestMapping(value = "/employees/{empId}", method = RequestMethod.GET)
-
+    @ResponseBody
     private ResponseEntity<Object> getEmployee(@PathVariable("empId") Long id){
         System.out.println(id);
         Optional<Employee> employee = employeeService.get(id);
-        //System.out.println(employee.get().getDepartment());
+        System.out.println(employee.get().getDepartment().getName());
         if (employee.isPresent()){
             return new ResponseEntity<>(employee.get(), HttpStatus.OK);
         }
