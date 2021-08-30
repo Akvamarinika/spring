@@ -1,0 +1,24 @@
+.modal-loading {
+    display:    none;
+    position:   fixed;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+    url('/resources/img/ajax-loader.gif')
+    50% 50%
+    no-repeat;
+}
+
+body.load {
+    overflow: hidden;
+}
+
+body.load .modal-loading {
+    display: block;
+}
+
+.fa{
+    pointer-events:none;
+}
