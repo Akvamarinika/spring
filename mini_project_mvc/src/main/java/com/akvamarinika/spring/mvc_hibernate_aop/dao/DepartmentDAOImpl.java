@@ -32,4 +32,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     public Optional<Department> get(Long id) {
         return null;
     }
+
+    @Override
+    public boolean delete(Long id) {
+        return true;
+
+    }
 }

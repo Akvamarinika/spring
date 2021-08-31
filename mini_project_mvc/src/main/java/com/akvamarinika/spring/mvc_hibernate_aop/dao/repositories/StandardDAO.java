@@ -9,4 +9,5 @@ public interface StandardDAO<T, N extends Number> {
     List<T> getAll();
     void save(T item);
     Optional<T> get(N id);
+    boolean delete(N id);
 }

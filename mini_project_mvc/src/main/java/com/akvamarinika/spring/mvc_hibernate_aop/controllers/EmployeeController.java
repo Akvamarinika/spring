@@ -6,7 +6,6 @@ import com.akvamarinika.spring.mvc_hibernate_aop.services.DepartmentService;
 import com.akvamarinika.spring.mvc_hibernate_aop.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,5 +49,15 @@ public class EmployeeController {
             return new ResponseEntity<>(employee.get(), HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @RequestMapping(value = "/employees/{empId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    private ResponseEntity<Object> deleteEmployee(@PathVariable("empId") Long id){
+        boolean answer = employeeService.delete(id);
+        if (answer){
+            return  ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

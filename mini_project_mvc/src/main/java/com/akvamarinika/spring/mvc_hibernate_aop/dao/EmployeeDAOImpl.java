@@ -50,4 +50,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         //Hibernate.initialize(employee.getDepartment());
         return Optional.ofNullable(employee);
     }
+
+    @Override
+    public boolean delete(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Employee> employeeQuery = session.createQuery("SELECT emp from Employee emp WHERE emp.id = :idEmployee", Employee.class);
+        employeeQuery.setParameter("idEmployee", id);
+        Employee employee = employeeQuery.getSingleResult();
+        if (employee != null){
+            session.delete(employee);
+            return true;
+        }
+        return false;
+    }
 }

@@ -34,4 +34,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> employee = employeeDAO.get(id);
         return employee;
     }
+
+    @Override
+    @Transactional
+    public boolean delete(Long id){
+        boolean answer = employeeDAO.delete(id);
+        return answer;
+    }
 }
