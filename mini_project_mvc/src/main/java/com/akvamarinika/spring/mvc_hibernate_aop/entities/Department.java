@@ -1,5 +1,6 @@
 package com.akvamarinika.spring.mvc_hibernate_aop.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ public class Department {
     private Long id;
 
     @Column(name = "name")
-    private String name;
+    private String nameDep;
 
     @Column(name = "min_salary")
     private int minSalary;
@@ -24,6 +25,7 @@ public class Department {
     @Column(name = "max_salary")
     private int maxSalary;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<Employee> employees = new ArrayList<>();
 
@@ -41,12 +43,12 @@ public class Department {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameDep() {
+        return nameDep;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameDep(String nameDep) {
+        this.nameDep = nameDep;
     }
 
     public int getMinSalary() {

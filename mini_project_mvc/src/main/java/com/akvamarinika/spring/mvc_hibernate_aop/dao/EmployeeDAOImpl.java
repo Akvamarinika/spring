@@ -24,7 +24,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        Query<Employee> query = session.createQuery("SELECT e FROM Employee e",  Employee.class);
+        Query<Employee> query = session.createQuery("SELECT e FROM Employee e JOIN FETCH e.department depart",  Employee.class);
         List<Employee> employeeList = query.getResultList();
         return employeeList;
     }
@@ -47,9 +47,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         Query<Employee> query = session.createQuery("SELECT emp FROM Employee emp JOIN FETCH emp.department depart WHERE emp.id = :id", Employee.class);
         query.setParameter("id", id);
         Employee employee = query.getSingleResult();
-        Hibernate.initialize(employee.getDepartment());
-
-
+        //Hibernate.initialize(employee.getDepartment());
         return Optional.ofNullable(employee);
     }
 }

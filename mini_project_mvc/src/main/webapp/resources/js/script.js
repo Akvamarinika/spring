@@ -61,27 +61,36 @@ async function request(id, method, url) {
 //edit employee
 let table = document.querySelector('.table');
  table.addEventListener('click',  async (ev) => {
-     //ev.preventDefault();
-     console.log(ev.target);
-     console.log(this);
-    if (ev.target.classList.contains('btn-info')){
 
+    if (ev.target.classList.contains('btn-info')){
         let myModal = new bootstrap.Modal(document.getElementById("modal-form-employee"), {});
         let idEmp = ev.target.dataset.id;
         let formHiddenId = document.getElementById('empId');
         let employee = await request(idEmp, "GET", `/employees/${idEmp}`);
         let fields = document.querySelectorAll('.form-group > input');
+
         setPropertyInForm(employee, fields);
+
+        if (employee.hasOwnProperty('department')){
+            let idDepart = employee['department']['id'];
+            let options = document.querySelectorAll('#department > option');
+            console.log('options ', options);
+            options.forEach(option => {
+                if (idDepart === +option.value){
+                    option.selected = 'selected';
+                }
+            });
+        }
+
         formHiddenId.value = idEmp;
         myModal.show();
-
-   console.log(employee);
-   //ev.stopPropagation();
-}
+    }
 });
 
-//add employee
-let btnAdd = document.querySelector('.btn-add');
+//reset form
+let btnAdd = document.querySelector('#btn-add');
+console.log(btnAdd);
 btnAdd.addEventListener('click', () => {
-    document.getElementById(".modal-form-employee").reset();
+    console.log(document.getElementById("empObj"));
+    document.getElementById("empObj").reset();
 });

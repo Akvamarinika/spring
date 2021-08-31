@@ -13,6 +13,7 @@
     <title>MVC mini-app</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />" />
 </head>
 <body>
     <h2>All Employees:</h2>
@@ -31,13 +32,13 @@
         <tr>
             <td>${emp.name}</td>
             <td>${emp.surname}</td>
-            <td>${emp.department.name}</td>
+            <td>${emp.department.nameDep}</td>
             <td>${emp.salary}</td>
             <td>${emp.detail.phoneNumber}</td>
             <td>${emp.detail.email}</td>
             <td>${emp.detail.city}</td>
             <td>
-                <button type="button" data-id="${emp.id}" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modal-add-employee">
+                <button type="button" data-id="${emp.id}" class="btn btn-info btn-sm"  >
                     <i class="fa fa-pencil"></i> Edit
                 </button>
                 <button type="button" class="btn btn-danger btn-sm">
@@ -47,11 +48,11 @@
         </tr>
         </c:forEach>
     </table>
-    <button id="btn-add" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add-employee">Add</button>
+    <button id="btn-add" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-form-employee">Add</button>
 
 
     <!--Modal window -->
-    <div class="modal fade" id="modal-add-employee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-form-employee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,7 +62,7 @@
                 <div class="modal-body mx-4">
                     <form:form action="${pageContext.request.contextPath}/employees" method="post" modelAttribute="empObj">
                         <div class="row inputs">
-                            <form:hidden path="id" id="id"/>
+                            <form:hidden path="id" id="empId"/>
                             <div class="form-group mb-3">
                                 <label for="name">Name:</label>
                                 <form:input path="name" id="name" class="form-control" />
@@ -73,7 +74,7 @@
                             <div class="form-group mb-3">
                                 <label for="department">Department:</label>
                                 <form:select  id="department" class="form-control"  path="department.id">
-                                    <form:options items="${departmentList}" itemValue="id" itemLabel="name"/>
+                                    <form:options items="${departmentList}" itemValue="id" itemLabel="nameDep"/>
                                 </form:select>
                             </div>
                             <div class="form-group mb-3">
@@ -103,6 +104,8 @@
         </div>
     </div>
 
+    <!--Loading window -->
+    <div class="modal-loading"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<c:url value="/resources/js/script.js"/>"></script>
