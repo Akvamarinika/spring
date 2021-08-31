@@ -35,7 +35,30 @@ function setPropertyInForm(obj, fields) {
     }
 }
 
-async function request(id, method, url) {
+async function requestWithBody(id, method, url, bodyElement, contentType) {
+    document.body.classList.add('load');
+    try{
+        let response = await fetch(url, {
+            method: method,
+            headers: {
+                'Accept': contentType,
+                'Content-Type': contentType
+            },
+            body: bodyElement
+        });
+
+        if (response.status === 404) {
+            alert("Sorry, employee not found!");
+        } else {
+            document.body.classList.remove('load');
+            //return response.json();
+        }
+    } catch (error) {
+        alert('error: ' + error);
+    }
+}
+
+async function requestWithoutBody(id, method, url) {
     document.body.classList.add('load');
     try{
         let response = await fetch(url, {
@@ -62,11 +85,12 @@ async function request(id, method, url) {
 let table = document.querySelector('.table');
  table.addEventListener('click',  async (ev) => {
 
-    if (ev.target.classList.contains('btn-info')){
+    if (ev.target.classList.contains('btn-update')){
         let myModal = new bootstrap.Modal(document.getElementById("modal-form-employee"), {});
+        let title = document.getElementById('main-modal-title');
         let idEmp = ev.target.dataset.id;
         let formHiddenId = document.getElementById('empId');
-        let employee = await request(idEmp, "GET", `/employees/${idEmp}`);
+        let employee = await requestWithoutBody(idEmp, "GET", `/employees/${idEmp}`);
         let fields = document.querySelectorAll('.form-group > input');
 
         setPropertyInForm(employee, fields);
@@ -83,6 +107,7 @@ let table = document.querySelector('.table');
         }
 
         formHiddenId.value = idEmp;
+        title.innerHTML = 'Edit employee: ';
         myModal.show();
     }
 });
@@ -93,4 +118,26 @@ console.log(btnAdd);
 btnAdd.addEventListener('click', () => {
     console.log(document.getElementById("empObj"));
     document.getElementById("empObj").reset();
+});
+
+//delete employee
+table.addEventListener('click',   (ev) => {
+    if (ev.target.classList.contains('btn-delete')){
+        let idEmp = ev.target.dataset.id;
+        let myModal = new bootstrap.Modal(document.getElementById("modal-confirm"), {});
+        myModal.show();
+
+        document.getElementById("btn-confirm-delete").addEventListener('click', async () => {
+            await requestWithBody(idEmp, 'DELETE', `/employees/${idEmp}`, JSON.stringify(idEmp), 'application/json');
+            myModal.hide();
+            document.getElementById(idEmp).remove();
+
+        });
+    }
+});
+
+//change title modal-form
+document.getElementById('btn-add').addEventListener('click',() => {
+    let title = document.getElementById('main-modal-title');
+    title.innerHTML = 'Add new employee: ';
 });

@@ -29,7 +29,7 @@
             <th>Operation</th>
         </tr>
         <c:forEach var="emp" items="${empList}">
-        <tr>
+        <tr id="${emp.id}">
             <td>${emp.name}</td>
             <td>${emp.surname}</td>
             <td>${emp.department.nameDep}</td>
@@ -38,10 +38,11 @@
             <td>${emp.detail.email}</td>
             <td>${emp.detail.city}</td>
             <td>
-                <button type="button" data-id="${emp.id}" class="btn btn-info btn-sm"  >
+                <button type="button" data-id="${emp.id}" class="btn-update btn btn-info btn-sm"  >
                     <i class="fa fa-pencil"></i> Edit
                 </button>
-                <button type="button" class="btn btn-danger btn-sm">
+
+                <button type="button" data-id="${emp.id}" class="btn-delete btn btn-danger btn-sm">
                     <span class="fa fa-trash"></span> Delete
                 </button>
             </td>
@@ -51,12 +52,34 @@
     <button id="btn-add" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-form-employee">Add</button>
 
 
+    <!--Modal Confirm Delete window -->
+    <div class="modal fade" id="modal-confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title mx-4">Delete employee: </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-4">
+                    <div>
+                        Are you sure you want to delete?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-info" data-bs-dismiss="modal">No</button>
+                        <button type="submit" id="btn-confirm-delete" class="btn btn-danger">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!--Modal window -->
     <div class="modal fade" id="modal-form-employee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title mx-4">Add new employee: </h4>
+                    <h4 id="main-modal-title" class="modal-title mx-4">Add new employee: </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body mx-4">
@@ -106,6 +129,7 @@
 
     <!--Loading window -->
     <div class="modal-loading"></div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<c:url value="/resources/js/script.js"/>"></script>
